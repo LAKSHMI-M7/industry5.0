@@ -1,12 +1,24 @@
+# Professional Monorepo Gitignore
+
+# Root dependencies
 node_modules/
-.env
 .DS_Store
+.vscode/
+*.log
+
+# Backend
+backend/node_modules/
+backend/.env
+backend/data/
+backend/mongodb.log
+backend/mongod_new.log
+
+# Frontend
+frontend/node_modules/
+frontend/dist/
+frontend/.env
+frontend/.env.local
+
+# Build artifacts
 dist/
 coverage/
-.vscode/
-server/data/
-server/data_clean/
-server/data_clean_v2/
-server/data_old/
-server/data_new/
-*.log
