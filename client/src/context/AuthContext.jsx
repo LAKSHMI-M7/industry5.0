@@ -6,33 +6,50 @@ const AuthContext = createContext();
 export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
+    const [isAuthenticating, setIsAuthenticating] = useState(false);
     const [currentRole, setCurrentRole] = useState(null);
 
     useEffect(() => {
         const storedUser = localStorage.getItem('user');
         if (storedUser) {
-            const userData = JSON.parse(storedUser);
-            setUser(userData);
-            setCurrentRole(userData.role);
-            axios.defaults.headers.common['Authorization'] = `Bearer ${userData.token}`;
+            try {
+                const userData = JSON.parse(storedUser);
+                setUser(userData);
+                setCurrentRole(userData.role);
+                axios.defaults.headers.common['Authorization'] = `Bearer ${userData.token}`;
+            } catch (e) {
+                localStorage.removeItem('user');
+            }
         }
         setLoading(false);
     }, []);
 
     const login = async (email, password) => {
-        const { data } = await axios.post('http://localhost:5000/api/auth/login', { email, password });
-        setUser(data);
-        setCurrentRole(data.role);
-        localStorage.setItem('user', JSON.stringify(data));
-        axios.defaults.headers.common['Authorization'] = `Bearer ${data.token}`;
+        setIsAuthenticating(true);
+        setUser(null);
+        setCurrentRole(null);
+
+        try {
+            const { data } = await axios.post('/api/auth/login', { email, password });
+            setUser(data);
+            setCurrentRole(data.role);
+            localStorage.setItem('user', JSON.stringify(data));
+            axios.defaults.headers.common['Authorization'] = `Bearer ${data.token}`;
+            return data;
+        } finally {
+            setIsAuthenticating(false);
+        }
     };
 
-    const register = async (name, email, password, role) => {
-        const { data } = await axios.post('http://localhost:5000/api/auth/register', { name, email, password, role });
-        setUser(data);
-        setCurrentRole(data.role);
-        localStorage.setItem('user', JSON.stringify(data));
-        axios.defaults.headers.common['Authorization'] = `Bearer ${data.token}`;
+    const changePassword = async (newPassword) => {
+        try {
+            await axios.post('/api/auth/change-password', { password: newPassword });
+            const updatedUser = { ...user, isFirstLogin: false };
+            setUser(updatedUser);
+            localStorage.setItem('user', JSON.stringify(updatedUser));
+        } catch (err) {
+            throw err;
+        }
     };
 
     const logout = () => {
@@ -48,8 +65,14 @@ export const AuthProvider = ({ children }) => {
         }
     };
 
+    const updateUser = (data) => {
+        const newUser = { ...user, ...data };
+        setUser(newUser);
+        localStorage.setItem('user', JSON.stringify(newUser));
+    };
+
     return (
-        <AuthContext.Provider value={{ user, currentRole, loading, login, register, logout, switchRole }}>
+        <AuthContext.Provider value={{ user, currentRole, loading, isAuthenticating, login, logout, switchRole, changePassword, updateUser }}>
             {children}
         </AuthContext.Provider>
     );

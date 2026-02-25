@@ -1,6 +1,7 @@
 import React from 'react';
 import { Outlet, Navigate } from 'react-router-dom';
 import Sidebar from './Sidebar';
+import Footer from './Footer';
 import { useAuth } from '../context/AuthContext';
 
 const Layout = () => {
@@ -15,11 +16,14 @@ const Layout = () => {
     if (!user) return <Navigate to="/login" />;
 
     return (
-        <div className="flex bg-primary min-h-screen">
+        <div className="flex bg-[#F8FAFC] h-screen overflow-hidden font-['Outfit']">
             <Sidebar />
-            <main className="flex-1 ml-64 p-8">
-                <div className="max-w-6xl mx-auto">
-                    <Outlet />
+            <main className="flex-1 ml-64 h-full overflow-y-auto dashboard-gradient custom-scrollbar">
+                <div className="p-8 md:p-12 max-w-[1600px] mx-auto min-h-full flex flex-col">
+                    <div className="flex-grow">
+                        <Outlet />
+                    </div>
+                    <Footer />
                 </div>
             </main>
         </div>

@@ -3,33 +3,96 @@
 @tailwind utilities;
 
 :root {
-  --primary: #0f172a;
-  --secondary: #1e293b;
-  --accent: #3b82f6;
-  --background: #020617;
-  --text: #f8fafc;
+  --primary: #94A3B8; /* Cement Grey */
+  --secondary: #FFFFFF;
+  --accent: #92400E; /* Warm Soft Brown */
+  --background: #F8FAFC; 
+  --text: #0F172A;
+  --sidebar: #E2E8F0; /* Light Cement Grey */
+  --card-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.07);
 }
 
 body {
   margin: 0;
   background-color: var(--background);
   color: var(--text);
-  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  font-family: 'Outfit', 'Inter', system-ui, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+.dashboard-gradient {
+  background: linear-gradient(135deg, #F8FAFC 0%, #EFF6FF 50%, #FAF7F5 100%);
 }
 
 .glass {
-  background: rgba(30, 41, 59, 0.7);
+  background: rgba(255, 255, 255, 0.7);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  box-shadow: var(--card-shadow);
+}
+
+.glass-strong {
+  background: rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.1);
 }
 
 .sidebar-link {
-  @apply flex items-center space-x-3 px-4 py-3 rounded-xl transition-all duration-200 hover:bg-white/10 text-slate-400 hover:text-white;
+  @apply flex items-center space-x-3 px-4 py-3.5 rounded-2xl transition-all duration-300 text-slate-600 hover:bg-white/50 hover:text-slate-900 mb-2;
 }
 
 .sidebar-link-active {
-  @apply bg-accent/20 text-accent border-r-4 border-accent;
+  @apply bg-[#92400E] text-white shadow-lg shadow-amber-900/20 font-bold;
+}
+
+/* Custom Scrollbar for Main Content */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 8px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #CBD5E1;
+  border-radius: 20px;
+  border: 2px solid transparent;
+  background-clip: content-box;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #94A3B8;
+}
+
+/* Height-based Compact Mode for Sidebar */
+@media (max-height: 850px) {
+    .erp-nav-item {
+        padding-top: 0.5rem !important;
+        padding-bottom: 0.5rem !important;
+    }
+    .erp-logo-section {
+        padding-top: 1rem !important;
+        padding-bottom: 0.5rem !important;
+    }
+    .erp-nav-section {
+        margin-top: 0.5rem !important;
+    }
+}
+
+@media (max-height: 700px) {
+    .erp-nav-item {
+        padding-top: 0.4rem !important;
+        padding-bottom: 0.4rem !important;
+        font-size: 0.7rem !important;
+    }
+    .erp-nav-item svg {
+        width: 16px !important;
+        height: 16px !important;
+    }
 }
 
 /* Custom Scrollbar */

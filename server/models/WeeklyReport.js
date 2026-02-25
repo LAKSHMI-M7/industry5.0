@@ -14,24 +14,28 @@ const weeklyReportSchema = new mongoose.Schema({
         type: Date,
         required: true
     },
-    completedWork: {
+    summary: {
         type: String,
         required: true
     },
-    ongoingWork: {
-        type: String,
-        required: true
+    technologiesUsed: {
+        type: [String],
+        default: []
+    },
+    issuesFaced: {
+        type: String
     },
     nextWeekPlan: {
         type: String,
         required: true
     },
-    githubRepoLink: {
-        type: String
+    attachments: {
+        type: [String],
+        default: []
     },
     status: {
         type: String,
-        enum: ['Pending', 'Completed', 'Ongoing', 'Needs Improvement'],
+        enum: ['Pending', 'Approved', 'Rejected', 'Verified', 'Correction Requested'],
         default: 'Pending'
     },
     secretaryFeedback: {

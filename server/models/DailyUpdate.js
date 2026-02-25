@@ -14,12 +14,25 @@ const dailyUpdateSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    images: {
+        type: [String],
+        default: []
+    },
+    links: {
+        type: [String],
+        default: []
+    },
     timeSpent: {
         type: String, // e.g., "2 hours"
         required: true
     },
     issuesFaced: {
         type: String
+    },
+    status: {
+        type: String,
+        enum: ['Pending', 'Approved', 'Correction Requested', 'Rejected'],
+        default: 'Pending'
     },
     secretaryFeedback: {
         type: String,

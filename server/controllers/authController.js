@@ -1,5 +1,7 @@
 const User = require('../models/User');
 const StudentProfile = require('../models/StudentProfile');
+const fs = require('fs');
+const path = require('path');
 const jwt = require('jsonwebtoken');
 
 const generateToken = (id) => {
@@ -45,6 +47,8 @@ const registerUser = async (req, res) => {
     }
 };
 
+const checkAndFillMissedAttendance = require('../utils/attendanceHelper');
+
 // @desc    Auth user & get token
 // @route   POST /api/auth/login
 // @access  Public
@@ -60,6 +64,7 @@ const loginUser = async (req, res) => {
             email: user.email,
             role: user.role,
             allowedRoles: user.allowedRoles,
+            isFirstLogin: user.isFirstLogin,
             token: generateToken(user._id),
         });
     } else {
@@ -67,4 +72,61 @@ const loginUser = async (req, res) => {
     }
 };
 
-module.exports = { registerUser, loginUser };
+// @desc    Change password
+// @route   POST /api/auth/change-password
+// @access  Private
+const changePassword = async (req, res) => {
+    try {
+        const user = await User.findById(req.user._id);
+        if (!user) return res.status(404).json({ message: 'User not found' });
+
+        user.password = req.body.password;
+        user.isFirstLogin = false;
+        await user.save();
+
+        res.json({ message: 'Password updated successfully' });
+    } catch (error) {
+        res.status(500).json({ message: 'Server Error' });
+    }
+};
+
+// @desc    Update user avatar
+// @route   POST /api/auth/avatar
+// @access  Private
+const updateAvatar = async (req, res) => {
+    try {
+        console.log('Update Avatar Request for User:', req.user._id);
+        if (!req.file) {
+            return res.status(400).json({ message: 'Please upload an image' });
+        }
+
+        const user = await User.findById(req.user._id);
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+
+        // Delete old avatar if it exists and is in uploads
+        if (user.avatar && user.avatar.startsWith('/uploads/')) {
+            // Remove leading / if present for path join to work correctly from root
+            const relativePath = user.avatar.startsWith('/') ? user.avatar.substring(1) : user.avatar;
+            const oldPath = path.join(__dirname, '..', relativePath);
+            console.log('Deleting old avatar at:', oldPath);
+            if (fs.existsSync(oldPath)) {
+                fs.unlinkSync(oldPath);
+            }
+        }
+
+        user.avatar = `/uploads/profiles/${req.file.filename}`;
+        await user.save();
+
+        res.json({
+            message: 'Avatar updated successfully',
+            avatar: user.avatar
+        });
+    } catch (error) {
+        console.error('Avatar Upload Error:', error);
+        res.status(500).json({ message: 'Server Error', error: error.message });
+    }
+};
+
+module.exports = { registerUser, loginUser, changePassword, updateAvatar };

@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import { Shield, Mail, Lock, ArrowRight } from 'lucide-react';
+import { Mail, Lock, LogIn, ShieldAlert, BadgeInfo } from 'lucide-react';
 import { motion } from 'framer-motion';
+import Footer from '../components/Footer';
 
 const Login = () => {
     const [email, setEmail] = useState('');
@@ -14,85 +15,142 @@ const Login = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            await login(email, password);
-            navigate('/dashboard');
+            const data = await login(email, password);
+            if (data.isFirstLogin) {
+                navigate('/change-password');
+            } else {
+                navigate('/dashboard');
+            }
         } catch (err) {
             setError(err.response?.data?.message || 'Failed to login');
         }
     };
 
     return (
-        <div className="min-h-screen bg-primary flex items-center justify-center p-4 relative overflow-hidden">
-            {/* Background decorations */}
-            <div className="absolute top-0 right-0 w-96 h-96 bg-accent/10 rounded-full blur-3xl -mr-48 -mt-48"></div>
-            <div className="absolute bottom-0 left-0 w-96 h-96 bg-blue-600/5 rounded-full blur-3xl -ml-48 -mb-48"></div>
+        <div className="min-h-screen flex flex-col lg:flex-row font-['Outfit'] overflow-hidden relative bg-[#F8FAFC]">
+            {/* Background Radial Glows */}
+            <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-amber-50 rounded-full blur-[120px] opacity-60"></div>
+            <div className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] bg-blue-50 rounded-full blur-[120px] opacity-60"></div>
 
-            <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                className="w-full max-w-md"
-            >
-                <div className="glass rounded-3xl p-8 shadow-2xl border border-white/5 relative">
-                    <div className="flex items-center justify-center mb-8">
-                        <div className="w-16 h-16 bg-accent/20 rounded-2xl flex items-center justify-center border border-accent/30 shadow-lg shadow-accent/20">
-                            <Shield className="text-accent" size={32} />
+            {/* Left Panel: 55% Branding */}
+            <div className="hidden lg:flex lg:w-[55%] relative overflow-hidden flex-col justify-center p-20 z-10">
+                <motion.div
+                    initial={{ opacity: 0, x: -40 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.8, ease: "easeOut" }}
+                    className="max-w-4xl"
+                >
+                    <div className="space-y-4">
+                        <div className="flex flex-col mb-4">
+                            <p className="text-[44px] font-serif font-black text-slate-900 uppercase tracking-[5px] leading-none mb-2">
+                                JEPPIAAR INSTITUTE OF TECHNOLOGY
+                            </p>
+                            <div className="h-[3px] w-32 bg-[#92400E]"></div>
                         </div>
+
+                        <div className="flex items-center space-x-[16px]">
+                            <img
+                                src="/logo.png"
+                                alt="Industry 5.0 Logo"
+                                className="w-[50px] h-[50px] rounded-full object-cover shadow-2xl border-2 border-white bg-white"
+                            />
+                            <h2 className="text-3xl font-black text-[#92400E] tracking-tight leading-none uppercase">Industry 5.0 Club Portal</h2>
+                        </div>
+
+                        <p className="text-sm font-bold text-slate-400 tracking-widest ml-[66px] uppercase">
+                            Student Activity & Academic Tracking System
+                        </p>
                     </div>
 
-                    <h2 className="text-3xl font-bold text-center mb-2">Welcome Back</h2>
-                    <p className="text-slate-400 text-center mb-8">Log in to Industry 5.0 Club Platform</p>
+                    <div className="flex items-center space-x-4 mt-16 ml-[86px]">
+                        <div className="h-10 w-px bg-slate-200"></div>
+                        <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest leading-tight">Official Institutional<br />Security Protocol</p>
+                    </div>
+                </motion.div>
+            </div>
+
+            {/* Right Panel: 45% Login Card */}
+            <div className="w-full lg:w-[45%] flex flex-col items-center justify-center p-6 lg:p-12 z-10">
+                {/* Mobile Header (Hidden on Large screens) */}
+                <div className="lg:hidden w-full text-center mb-10">
+                    <p className="text-[#92400E] font-black text-[12px] uppercase tracking-[4px] mb-2 font-serif">JEPPIAAR INSTITUTE OF TECHNOLOGY</p>
+                    <h1 className="text-2xl font-black text-slate-900 tracking-tighter uppercase">Industry 5.0 Club Portal</h1>
+                </div>
+
+                <motion.div
+                    initial={{ opacity: 0, y: 20, scale: 0.98 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    transition={{ duration: 0.6, delay: 0.2 }}
+                    className="w-full max-w-[500px] p-10 md:p-16 rounded-[48px] shadow-[0_32px_64px_-16px_rgba(0,0,0,0.08)] bg-white border border-slate-200/50 backdrop-blur-sm"
+                >
+                    <div className="mb-12 w-full text-center">
+                        <h2 className="text-3xl font-black text-slate-900 tracking-tighter leading-none mb-3">Sign in to your account</h2>
+                    </div>
 
                     {error && (
-                        <div className="bg-red-500/10 border border-red-500/50 text-red-500 p-3 rounded-xl text-sm mb-6 text-center">
-                            {error}
-                        </div>
+                        <motion.div
+                            initial={{ opacity: 0, height: 0 }}
+                            animate={{ opacity: 1, height: 'auto' }}
+                            className="w-full mb-8 p-5 bg-red-50 border border-red-100 rounded-[24px] flex items-center space-x-4 text-red-600"
+                        >
+                            <ShieldAlert size={20} className="shrink-0" />
+                            <span className="text-[11px] font-black uppercase tracking-widest leading-none">{error}</span>
+                        </motion.div>
                     )}
 
-                    <form onSubmit={handleSubmit} className="space-y-6">
-                        <div>
-                            <label className="text-sm font-medium text-slate-300 mb-2 block">Email Address</label>
-                            <div className="relative">
-                                <Mail className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500" size={18} />
+                    <form onSubmit={handleSubmit} className="w-full space-y-8">
+                        <div className="space-y-3">
+                            <label className="text-[10px] font-black text-slate-400 uppercase tracking-[3px] ml-1">Registered Email ID</label>
+                            <div className="relative group">
+                                <Mail className="absolute left-6 top-1/2 -translate-y-1/2 text-slate-300 group-focus-within:text-[#92400E] transition-colors" size={20} />
                                 <input
                                     type="email"
                                     required
                                     value={email}
                                     onChange={(e) => setEmail(e.target.value)}
-                                    className="w-full bg-white/5 border border-white/10 rounded-xl py-3 pl-10 pr-4 focus:ring-2 focus:ring-accent outline-none transition-all"
-                                    placeholder="your@email.com"
+                                    className="w-full bg-slate-50/50 border border-slate-200/60 rounded-[32px] py-5 pl-14 pr-8 focus:bg-white focus:ring-[15px] focus:ring-[#92400E]/5 focus:border-[#92400E] outline-none transition-all text-slate-900 font-bold placeholder:text-slate-300"
+                                    placeholder="your.email@jit.edu"
                                 />
                             </div>
                         </div>
 
-                        <div>
-                            <label className="text-sm font-medium text-slate-300 mb-2 block">Password</label>
-                            <div className="relative">
-                                <Lock className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500" size={18} />
+                        <div className="space-y-3">
+                            <div className="flex justify-between items-center ml-1">
+                                <label className="text-[10px] font-black text-slate-400 uppercase tracking-[3px]">Password</label>
+                                <Link to="#" className="text-[10px] font-black text-[#92400E] uppercase tracking-widest hover:underline opacity-60">Forgot Password?</Link>
+                            </div>
+                            <div className="relative group">
+                                <Lock className="absolute left-6 top-1/2 -translate-y-1/2 text-slate-300 group-focus-within:text-[#92400E] transition-colors" size={20} />
                                 <input
                                     type="password"
                                     required
                                     value={password}
                                     onChange={(e) => setPassword(e.target.value)}
-                                    className="w-full bg-white/5 border border-white/10 rounded-xl py-3 pl-10 pr-4 focus:ring-2 focus:ring-accent outline-none transition-all"
+                                    className="w-full bg-slate-50/50 border border-slate-200/60 rounded-[32px] py-5 pl-14 pr-8 focus:bg-white focus:ring-[15px] focus:ring-[#92400E]/5 focus:border-[#92400E] outline-none transition-all text-slate-900 font-bold placeholder:text-slate-300"
                                     placeholder="••••••••"
                                 />
                             </div>
                         </div>
 
-                        <button
-                            type="submit"
-                            className="w-full bg-accent hover:bg-accent/90 text-white font-semibold py-3 rounded-xl shadow-lg shadow-accent/30 transition-all flex items-center justify-center space-x-2 group"
-                        >
-                            <span>Sign In</span>
-                            <ArrowRight className="group-hover:translate-x-1 transition-transform" size={18} />
-                        </button>
+                        <div className="pt-2">
+                            <motion.button
+                                whileHover={{ scale: 1.01, translateY: -2 }}
+                                whileTap={{ scale: 0.98 }}
+                                type="submit"
+                                className="w-full bg-slate-900 hover:bg-black text-white font-black py-6 rounded-[32px] shadow-2xl shadow-slate-900/20 transition-all flex items-center justify-center space-x-4 group"
+                            >
+                                <span className="text-sm tracking-[2px]">Sign In</span>
+                                <LogIn size={20} className="group-hover:translate-x-1 transition-transform" />
+                            </motion.button>
+                        </div>
                     </form>
+                </motion.div>
+            </div>
 
-                    <p className="mt-8 text-center text-slate-400 text-sm">
-                        Don't have an account? <Link to="/register" className="text-accent hover:underline font-medium">Create one</Link>
-                    </p>
-                </div>
-            </motion.div>
+            {/* Global Footer */}
+            <div className="absolute bottom-2 left-0 right-0 z-20 pointer-events-auto">
+                <Footer />
+            </div>
         </div>
     );
 };

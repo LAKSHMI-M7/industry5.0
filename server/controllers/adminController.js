@@ -17,39 +17,40 @@ const getSystemStats = async (req, res) => {
 
         const today = new Date();
         today.setHours(0, 0, 0, 0);
+
+        // Today's Attendance (Present)
         const attendanceToday = await Attendance.countDocuments({
+            date: { $gte: today },
+            status: 'Present'
+        });
+
+        // Absent Today
+        const absentToday = totalStudents - attendanceToday;
+
+        // Active Users Today (Any attendance or update today)
+        // For simplicity, we can use attendance + a small factor or just attendance
+        const activeToday = await Attendance.countDocuments({
             date: { $gte: today }
         });
 
         const totalDailyUpdates = await DailyUpdate.countDocuments();
+        const pendingDailyUpdates = await DailyUpdate.countDocuments({
+            $or: [
+                { secretaryReply: { $exists: false } },
+                { secretaryReply: '' }
+            ]
+        });
+
         const totalWeeklyReports = await WeeklyReport.countDocuments();
-
-        // Calculate real-time alerts
-        const alerts = [];
-
-        if (attendanceToday === 0 && totalStudents > 0) {
-            alerts.push({
-                type: 'warning',
-                message: 'No attendance records detected for today',
-                icon: 'UserCheck'
-            });
-        }
-
-        if (totalDailyUpdates === 0 && totalStudents > 0) {
-            alerts.push({
-                type: 'critical',
-                message: 'Zero daily updates submitted by students',
-                icon: 'AlertCircle'
-            });
-        }
-
-        if (totalUsers > 0 && totalSecretaries === 0) {
-            alerts.push({
-                type: 'info',
-                message: 'No club secretaries assigned for management',
-                icon: 'Shield'
-            });
-        }
+        const pendingWeeklyReports = await WeeklyReport.countDocuments({
+            status: 'Pending'
+        });
+        const approvedWeeklyReports = await WeeklyReport.countDocuments({
+            status: 'Approved'
+        });
+        const verifiedWeeklyReports = await WeeklyReport.countDocuments({
+            status: 'Verified'
+        });
 
         res.json({
             users: {
@@ -57,16 +58,23 @@ const getSystemStats = async (req, res) => {
                 students: totalStudents,
                 secretaries: totalSecretaries,
                 staff: totalStaff,
-                leaders: totalLeaders
+                leaders: totalLeaders,
+                activeToday
             },
             activity: {
                 dailyUpdates: totalDailyUpdates,
+                pendingDailyUpdates,
                 weeklyReports: totalWeeklyReports,
-                attendanceToday
+                pendingWeeklyReports,
+                approvedWeeklyReports,
+                verifiedWeeklyReports,
+                attendanceToday,
+                absentToday
             },
-            alerts
+            alerts: []
         });
     } catch (error) {
+        console.error(error);
         res.status(500).json({ message: 'Server Error' });
     }
 };
@@ -83,17 +91,101 @@ const getAllUsers = async (req, res) => {
     }
 };
 
-// @desc    Update User Role
-// @route   PUT /api/admin/users/:id/role
+// @desc    Update User Info
+// @route   PUT /api/admin/users/:id
 // @access  Private (Admin)
-const updateUserRole = async (req, res) => {
+const updateUserInfo = async (req, res) => {
+    const {
+        name, email, role,
+        registerNumber, department, year, domain
+    } = req.body;
+
     try {
         const user = await User.findById(req.params.id);
         if (!user) return res.status(404).json({ message: 'User not found' });
 
-        user.role = req.body.role || user.role;
+        user.name = name || user.name;
+        user.email = email || user.email;
+        user.role = role || user.role;
+
         await user.save();
+
+        if (user.role === 'student') {
+            await StudentProfile.findOneAndUpdate(
+                { user: user._id },
+                { registerNumber, department, year, domain },
+                { upsert: true, new: true }
+            );
+        }
+
         res.json(user);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Server Error' });
+    }
+};
+
+// @desc    Create User
+// @route   POST /api/admin/users
+// @access  Private (Admin)
+const createUser = async (req, res) => {
+    const {
+        name, email, password, role,
+        registerNumber, department, year, domain
+    } = req.body;
+
+    try {
+        const userExists = await User.findOne({ email });
+        if (userExists) {
+            return res.status(400).json({ message: 'User already exists' });
+        }
+
+        const user = await User.create({
+            name,
+            email,
+            password,
+            role,
+            isFirstLogin: true
+        });
+
+        if (role === 'student' && registerNumber) {
+            await StudentProfile.create({
+                user: user._id,
+                registerNumber,
+                department,
+                year,
+                domain,
+                section: 'A', // Default or should be in body
+                semester: '1', // Default
+                phone: '0000000000' // Placeholder
+            });
+        }
+
+        res.status(201).json({
+            _id: user._id,
+            name: user.name,
+            email: user.email,
+            role: user.role
+        });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: error.message || 'Server Error' });
+    }
+};
+
+// @desc    Delete User
+// @route   DELETE /api/admin/users/:id
+// @access  Private (Admin)
+const deleteUser = async (req, res) => {
+    try {
+        const user = await User.findById(req.params.id);
+        if (!user) return res.status(404).json({ message: 'User not found' });
+
+        // Delete associated student profile if it exists
+        await StudentProfile.findOneAndDelete({ user: user._id });
+
+        await user.deleteOne();
+        res.json({ message: 'User removed' });
     } catch (error) {
         res.status(500).json({ message: 'Server Error' });
     }
@@ -166,7 +258,9 @@ const getAnalyticsData = async (req, res) => {
 module.exports = {
     getSystemStats,
     getAllUsers,
-    updateUserRole,
+    updateUserInfo,
+    createUser,
+    deleteUser,
     getSecurityAudit,
     getAnalyticsData
 };

@@ -41,6 +41,14 @@ const students = [
     {
         user: { name: 'Thriya. S', email: 'thiruvaimozhi07@gmail.com', password: 'industry5.0@123', role: 'student', avatar: 'https://ui-avatars.com/api/?name=Thriya+S&background=random' },
         profile: { registerNumber: '21062420515', department: 'Information Technology', year: 'II', domain: 'Cybersecurity', githubLink: 'https://github.com/thiruvaimozhi07-glitch', linkedinLink: 'https://www.linkedin.com/in/thriya-senthil-24924a328?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app', skills: ['Python', 'SQL', 'Power BI', 'HTML', 'Java(Basics)'] }
+    },
+    {
+        user: { name: 'Lakshmi.M', email: 'lakshmimanikkam789@gmail.com', password: 'industry5.0@123', role: 'student', avatar: '/avatars/lakshmi-m-profile.jpg' },
+        profile: { registerNumber: '210624104100', department: 'CSE', year: 'II', domain: 'Web Development', githubLink: 'https://github.com/LAKSHMI-M7', linkedinLink: 'https://www.linkedin.com/in/lakshmi-m-228760328/', skills: ['Python', 'HTML', 'CSS', 'JavaScript(Basic)', 'n8n(AI Tool)'] }
+    },
+    {
+        user: { name: 'Lubiga N', email: 'lubiganaveen@gmail.com', password: 'industry5.0@123', role: 'student', allowedRoles: ['student', 'secretary'], avatar: '/avatars/lubiga-profile.png' },
+        profile: { registerNumber: '210624104103', department: 'CSE', year: 'II', domain: 'App development', githubLink: 'https://github.com/Lubiga-N', linkedinLink: 'https://www.linkedin.com/in/lubiga-n-ab4522328?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app', skills: ['Java', 'SQL'] }
     }
 ];
 
@@ -53,15 +61,12 @@ const seedAllStudents = async () => {
             let user = await User.findOne({ email: student.user.email });
             if (user) {
                 console.log(`User ${student.user.email} already exists. Updating...`);
-                // Update fields
                 user.name = student.user.name;
-                // Only hash/save password if you want, but user.create already handles it.
-                // If updating, we might skip password to avoid rehashing if we didn't implement checks? 
-                // But my fix in User.js SHOULD prevent rehash if unmodified.
-                // However, assigning user.password = plaintext updates 'password' field, so it will rehash.
-                // This is fine for seeding (resetting password).
                 user.password = student.user.password;
                 user.role = student.user.role;
+                if (student.user.allowedRoles) {
+                    user.allowedRoles = student.user.allowedRoles;
+                }
                 user.avatar = student.user.avatar;
                 await user.save();
             } else {

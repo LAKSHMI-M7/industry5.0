@@ -24,6 +24,26 @@ const studentProfileSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    section: {
+        type: String,
+        required: true
+    },
+    semester: {
+        type: String,
+        required: true
+    },
+    phone: {
+        type: String,
+        required: true
+    },
+    cgpa: {
+        type: Number,
+        default: 0
+    },
+    arrears: {
+        type: Number,
+        default: 0
+    },
     githubLink: {
         type: String
     },

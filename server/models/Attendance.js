@@ -9,12 +9,20 @@ const attendanceSchema = new mongoose.Schema({
     date: {
         type: Date,
         required: true,
-        default: Date.now
+        default: () => {
+            const d = new Date();
+            d.setHours(0, 0, 0, 0);
+            return d;
+        }
     },
     status: {
         type: String,
         enum: ['Present', 'Absent', 'Leave'],
         default: 'Present'
+    },
+    markedAt: {
+        type: Date,
+        default: Date.now
     }
 }, { timestamps: true });
 

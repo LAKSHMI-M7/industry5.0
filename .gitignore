@@ -8,4 +8,5 @@ server/data/
 server/data_clean/
 server/data_clean_v2/
 server/data_old/
+server/data_new/
 *.log

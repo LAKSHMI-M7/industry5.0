@@ -1,18 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Users, Search, Mail, ExternalLink, Filter, X } from 'lucide-react';
-import { motion } from 'framer-motion';
+import { Users, Search, Mail, ExternalLink, Filter, X, ChevronRight, UserPlus, Info } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { useNavigate } from 'react-router-dom';
 
 const StudentList = () => {
     const [students, setStudents] = useState([]);
     const [loading, setLoading] = useState(true);
-    const [selectedStudent, setSelectedStudent] = useState(null);
-    const [showModal, setShowModal] = useState(false);
+    const [searchQuery, setSearchQuery] = useState('');
+    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchStudents = async () => {
             try {
-                const { data } = await axios.get('http://localhost:5000/api/secretary/students');
+                const { data } = await axios.get('/api/secretary/students');
                 setStudents(data);
             } catch (err) {
                 console.error(err);
@@ -23,165 +24,132 @@ const StudentList = () => {
         fetchStudents();
     }, []);
 
-    const openProfile = (student) => {
-        setSelectedStudent(student);
-        setShowModal(true);
-    };
-
-    const sendEmail = (email) => {
-        window.location.href = `mailto:${email}`;
-    };
+    const filteredStudents = students.filter(student =>
+        student.user?.name?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        student.registerNumber?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        student.domain?.toLowerCase().includes(searchQuery.toLowerCase())
+    );
 
     return (
-        <div className="space-y-8">
-            <header className="flex justify-between items-end">
-                <div>
-                    <h1 className="text-3xl font-bold">Student Directory</h1>
-                    <p className="text-slate-400">View and manage all club members</p>
-                </div>
-                <div className="flex space-x-3">
-                    <div className="relative">
-                        <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500" size={18} />
-                        <input
-                            type="text"
-                            placeholder="Search students..."
-                            className="bg-white/5 border border-white/10 rounded-xl py-2 pl-10 pr-4 focus:ring-1 focus:ring-accent outline-none text-sm w-64"
-                        />
+        <div className="bg-[#ECECEC] min-h-screen p-8 md:p-12 font-['Outfit']">
+            <div className="max-w-7xl mx-auto space-y-12 pb-20 animate-in fade-in slide-in-from-bottom-8 duration-1000">
+                <header className="flex flex-col md:flex-row md:items-end justify-between gap-8">
+                    <div>
+                        <h1 className="text-5xl font-black text-slate-900 tracking-tight mb-3 uppercase">Students</h1>
+                        <p className="text-slate-500 font-bold ml-1 uppercase tracking-widest text-sm">View and manage student academic profiles.</p>
+                    </div>
+                    <div className="flex flex-col sm:flex-row gap-4 items-center">
+                        <div className="relative group">
+                            <Search className="absolute left-5 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-[#9A4A17] transition-colors" size={20} />
+                            <input
+                                type="text"
+                                placeholder="Search students..."
+                                value={searchQuery}
+                                onChange={(e) => setSearchQuery(e.target.value)}
+                                className="bg-white/60 border border-slate-200/60 rounded-[28px] py-4 pl-14 pr-8 focus:bg-white focus:ring-[12px] focus:ring-[#9A4A17]/5 focus:border-[#9A4A17] outline-none transition-all text-slate-900 font-bold w-full sm:w-80 shadow-sm"
+                            />
+                        </div>
+                    </div>
+                </header>
+
+                <div className="glass-strong rounded-[48px] border-white shadow-2xl overflow-hidden relative group">
+                    <div className="absolute inset-0 bg-gradient-to-br from-white/20 via-transparent to-[#9A4A17]/5 opacity-50 pointer-events-none"></div>
+                    <div className="overflow-x-auto relative z-10">
+                        <table className="w-full text-left border-collapse">
+                            <thead>
+                                <tr className="bg-slate-900/5">
+                                    <th className="px-10 py-8 text-[10px] font-black text-slate-400 uppercase tracking-[4px]">Student Name</th>
+                                    <th className="px-8 py-8 text-[10px] font-black text-slate-400 uppercase tracking-[4px]">Domain</th>
+                                    <th className="px-8 py-8 text-[10px] font-black text-slate-400 uppercase tracking-[4px]">Register Number</th>
+                                    <th className="px-8 py-8 text-[10px] font-black text-slate-400 uppercase tracking-[4px]">Academic Details</th>
+                                    <th className="px-8 py-8 text-[10px] font-black text-slate-400 uppercase tracking-[4px] text-right">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody className="divide-y divide-slate-100">
+                                {loading ? (
+                                    Array(5).fill(0).map((_, i) => (
+                                        <tr key={i} className="animate-pulse">
+                                            <td colSpan="5" className="px-10 py-12"><div className="h-12 bg-slate-200/50 rounded-3xl w-full"></div></td>
+                                        </tr>
+                                    ))
+                                ) : filteredStudents.length === 0 ? (
+                                    <tr>
+                                        <td colSpan="5" className="px-10 py-20 text-center">
+                                            <Users size={64} className="mx-auto text-slate-200 mb-6" />
+                                            <p className="text-slate-400 font-bold uppercase tracking-[4px]">No students found.</p>
+                                        </td>
+                                    </tr>
+                                ) : (
+                                    filteredStudents.map((student) => (
+                                        <tr key={student._id} className="hover:bg-white transition-all duration-300 group">
+                                            <td className="px-10 py-8">
+                                                <div className="flex items-center space-x-5">
+                                                    <div className="relative">
+                                                        <img
+                                                            src={student.user?.avatar || `https://ui-avatars.com/api/?name=${encodeURIComponent(student.user?.name || 'S')}&background=9A4A17&color=fff&bold=true`}
+                                                            className="w-16 h-16 rounded-[24px] object-cover border-4 border-white shadow-lg group-hover:scale-110 transition-transform duration-500"
+                                                            alt="Avatar"
+                                                        />
+                                                        <div className="absolute -bottom-1 -right-1 w-5 h-5 bg-emerald-500 border-4 border-white rounded-full"></div>
+                                                    </div>
+                                                    <div>
+                                                        <p className="text-lg font-black text-slate-900 tracking-tight uppercase leading-none mb-1">{student.user?.name}</p>
+                                                        <p className="text-[10px] text-slate-400 font-bold uppercase tracking-widest leading-none">{student.user?.email}</p>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td className="px-8 py-8">
+                                                <span className="px-5 py-2 bg-amber-50 text-[#9A4A17] text-[10px] font-black rounded-full border border-amber-100/50 uppercase tracking-widest shadow-sm">
+                                                    {student.domain}
+                                                </span>
+                                            </td>
+                                            <td className="px-8 py-8 text-sm font-black text-slate-900 tracking-tighter uppercase">{student.registerNumber}</td>
+                                            <td className="px-8 py-8">
+                                                <div className="space-y-1">
+                                                    <p className="text-xs font-black text-slate-700 uppercase tracking-tight leading-none">{student.department}</p>
+                                                    <p className="text-[10px] text-slate-400 font-bold uppercase tracking-widest leading-none">Year {student.year} <span className="text-slate-200 font-normal">|</span> Sem {student.semester || 'N/A'}</p>
+                                                </div>
+                                            </td>
+                                            <td className="px-8 py-8">
+                                                <div className="flex justify-end space-x-3">
+                                                    <button
+                                                        onClick={() => navigate(`/students/${student.user?._id}`)}
+                                                        className="w-12 h-12 bg-white border border-slate-100 rounded-2xl flex items-center justify-center text-slate-400 hover:bg-[#9A4A17] hover:text-white hover:shadow-xl hover:shadow-amber-900/20 transition-all group/btn"
+                                                        title="View Profile"
+                                                    >
+                                                        <Info size={20} className="group-hover/btn:scale-110 transition-transform" />
+                                                    </button>
+                                                    <a
+                                                        href={`mailto:${student.user?.email}`}
+                                                        className="w-12 h-12 bg-white border border-slate-100 rounded-2xl flex items-center justify-center text-slate-400 hover:bg-slate-900 hover:text-white hover:shadow-xl transition-all group/btn"
+                                                        title="Send Email"
+                                                    >
+                                                        <Mail size={20} className="group-hover/btn:scale-110 transition-transform" />
+                                                    </a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    ))
+                                )}
+                            </tbody>
+                        </table>
                     </div>
                 </div>
-            </header>
 
-            <div className="glass rounded-3xl border border-white/5 overflow-hidden">
-                <div className="overflow-x-auto">
-                    <table className="w-full text-left">
-                        <thead>
-                            <tr className="bg-white/5">
-                                <th className="px-6 py-4 text-xs font-bold text-slate-400 tracking-wider">STUDENT</th>
-                                <th className="px-6 py-4 text-xs font-bold text-slate-400 tracking-wider">DOMAIN</th>
-                                <th className="px-6 py-4 text-xs font-bold text-slate-400 tracking-wider">REGISTER NO</th>
-                                <th className="px-6 py-4 text-xs font-bold text-slate-400 tracking-wider">DEPARTMENT</th>
-                                <th className="px-6 py-4 text-xs font-bold text-slate-400 tracking-wider">ACTIONS</th>
-                            </tr>
-                        </thead>
-                        <tbody className="divide-y divide-white/5">
-                            {students.map((student) => (
-                                <tr key={student._id} className="hover:bg-white/5 transition-all group">
-                                    <td className="px-6 py-4">
-                                        <div className="flex items-center space-x-4">
-                                            <div className="w-10 h-10 bg-accent/20 rounded-full flex items-center justify-center text-accent font-bold">
-                                                {student.user?.name[0]}
-                                            </div>
-                                            <div>
-                                                <p className="font-semibold text-white">{student.user?.name}</p>
-                                                <p className="text-xs text-slate-500">{student.user?.email}</p>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td className="px-6 py-4">
-                                        <span className="px-3 py-1 bg-accent/10 text-accent text-xs font-bold rounded-lg border border-accent/20">
-                                            {student.domain}
-                                        </span>
-                                    </td>
-                                    <td className="px-6 py-4 text-sm text-slate-300 font-mono">{student.registerNumber}</td>
-                                    <td className="px-6 py-4 text-sm text-slate-400">{student.department} ({student.year} Year)</td>
-                                    <td className="px-6 py-4">
-                                        <div className="flex space-x-2">
-                                            <button
-                                                onClick={() => openProfile(student)}
-                                                className="p-2 bg-white/5 rounded-lg text-slate-400 hover:text-accent hover:bg-accent/10 transition-all"
-                                                title="View Profile"
-                                            >
-                                                <ExternalLink size={16} />
-                                            </button>
-                                            <button
-                                                onClick={() => sendEmail(student.user?.email)}
-                                                className="p-2 bg-white/5 rounded-lg text-slate-400 hover:text-accent hover:bg-accent/10 transition-all"
-                                                title="Send Mail"
-                                            >
-                                                <Mail size={16} />
-                                            </button>
-                                        </div>
-                                    </td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-
-            {/* Profile Modal */}
-            {showModal && selectedStudent && (
-                <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
-                    <motion.div
-                        initial={{ opacity: 0, scale: 0.9 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        className="glass max-w-2xl w-full rounded-3xl overflow-hidden border border-white/10"
-                    >
-                        <div className="p-8 space-y-6">
-                            <div className="flex justify-between items-start">
-                                <div className="flex items-center space-x-4">
-                                    <div className="w-16 h-16 bg-accent rounded-2xl flex items-center justify-center text-2xl font-bold">
-                                        {selectedStudent.user?.name[0]}
-                                    </div>
-                                    <div>
-                                        <h2 className="text-2xl font-bold">{selectedStudent.user?.name}</h2>
-                                        <p className="text-slate-400">{selectedStudent.user?.email}</p>
-                                    </div>
-                                </div>
-                                <button
-                                    onClick={() => setShowModal(false)}
-                                    className="p-2 hover:bg-white/10 rounded-xl transition-all text-slate-400 hover:text-white"
-                                >
-                                    <X size={20} />
-                                </button>
-                            </div>
-
-                            <div className="grid grid-cols-2 gap-6">
-                                <div className="space-y-1">
-                                    <p className="text-xs text-slate-500 font-bold uppercase tracking-wider">Domain</p>
-                                    <p className="font-semibold text-accent">{selectedStudent.domain}</p>
-                                </div>
-                                <div className="space-y-1">
-                                    <p className="text-xs text-slate-500 font-bold uppercase tracking-wider">Register No</p>
-                                    <p className="font-mono">{selectedStudent.registerNumber}</p>
-                                </div>
-                                <div className="space-y-1">
-                                    <p className="text-xs text-slate-500 font-bold uppercase tracking-wider">Department</p>
-                                    <p>{selectedStudent.department}</p>
-                                </div>
-                                <div className="space-y-1">
-                                    <p className="text-xs text-slate-500 font-bold uppercase tracking-wider">Year</p>
-                                    <p>{selectedStudent.year} Year</p>
-                                </div>
-                            </div>
-
-                            <div className="space-y-2">
-                                <p className="text-xs text-slate-500 font-bold uppercase tracking-wider">Skills</p>
-                                <div className="flex flex-wrap gap-2">
-                                    {selectedStudent.skills?.map((skill, i) => (
-                                        <span key={i} className="px-3 py-1 bg-white/5 rounded-lg text-sm border border-white/5">
-                                            {skill}
-                                        </span>
-                                    )) || <p className="text-slate-500 italic">No skills added</p>}
-                                </div>
-                            </div>
-
-                            <div className="flex space-x-4 pt-4 border-t border-white/5">
-                                {selectedStudent.githubLink && (
-                                    <a href={selectedStudent.githubLink} target="_blank" rel="noreferrer" className="flex items-center space-x-2 text-sm text-slate-400 hover:text-white transition-all">
-                                        <ExternalLink size={14} /> <span>GitHub Profile</span>
-                                    </a>
-                                )}
-                                {selectedStudent.linkedinLink && (
-                                    <a href={selectedStudent.linkedinLink} target="_blank" rel="noreferrer" className="flex items-center space-x-2 text-sm text-slate-400 hover:text-white transition-all">
-                                        <ExternalLink size={14} /> <span>LinkedIn Profile</span>
-                                    </a>
-                                )}
-                            </div>
+                <footer className="flex justify-center pt-8">
+                    <div className="glass px-10 py-6 rounded-full border-white shadow-lg flex items-center space-x-12">
+                        <div className="text-center">
+                            <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Total Students</p>
+                            <p className="text-2xl font-black text-slate-900 tracking-tighter">{students.length}</p>
                         </div>
-                    </motion.div>
-                </div>
-            )}
+                        <div className="w-px h-8 bg-slate-200"></div>
+                        <div className="text-center">
+                            <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Departments</p>
+                            <p className="text-2xl font-black text-slate-900 tracking-tighter">{new Set(students.map(s => s.department)).size}</p>
+                        </div>
+                    </div>
+                </footer>
+            </div>
         </div>
     );
 };

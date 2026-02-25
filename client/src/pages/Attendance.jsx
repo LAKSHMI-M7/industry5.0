@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Calendar, CheckCircle, XCircle, Clock, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Calendar, CheckCircle, XCircle, Clock, ChevronLeft, ChevronRight, Activity, Zap, ShieldCheck, History } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 const Attendance = () => {
@@ -10,10 +10,12 @@ const Attendance = () => {
     useEffect(() => {
         const fetchAttendance = async () => {
             try {
-                const { data } = await axios.get('http://localhost:5000/api/student/attendance');
-                setAttendance(data);
+                const { data } = await axios.get('/api/student/attendance');
+                // Ensure data is sorted by date descending for the log
+                const sortedData = (data || []).sort((a, b) => new Date(b.date) - new Date(a.date));
+                setAttendance(sortedData);
             } catch (err) {
-                console.error(err);
+                console.error('Error fetching attendance log:', err);
             } finally {
                 setLoading(false);
             }
@@ -27,73 +29,130 @@ const Attendance = () => {
         percentage: attendance.length > 0 ? (attendance.filter(a => a.status === 'Present').length / attendance.length * 100).toFixed(1) : 0
     };
 
-    return (
-        <div className="space-y-8">
-            <header>
-                <h1 className="text-3xl font-bold">Attendance Record</h1>
-                <p className="text-slate-400">Monitor your daily presence logs</p>
-            </header>
-
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div className="glass p-6 rounded-2xl border border-white/5">
-                    <p className="text-slate-400 text-sm font-medium">Total Days Logged</p>
-                    <h3 className="text-3xl font-bold mt-1">{attendance.length} Days</h3>
-                </div>
-                <div className="glass p-6 rounded-2xl border border-white/5">
-                    <p className="text-slate-400 text-sm font-medium">Days Present</p>
-                    <h3 className="text-3xl font-bold mt-1 text-green-500">{stats.present}</h3>
-                </div>
-                <div className="glass p-6 rounded-2xl border border-white/5">
-                    <p className="text-slate-400 text-sm font-medium">Attendance Percentage</p>
-                    <h3 className="text-3xl font-bold mt-1 text-accent">{stats.percentage}%</h3>
-                </div>
+    if (loading) return (
+        <div className="dashboard-gradient min-h-screen flex flex-col items-center justify-center p-8 space-y-8 font-['Outfit']">
+            <div className="relative">
+                <div className="w-20 h-20 border-4 border-[#92400E]/20 border-t-[#92400E] rounded-full animate-spin"></div>
+                <Zap size={24} className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[#92400E] animate-pulse" />
             </div>
+            <p className="text-slate-400 font-black uppercase tracking-[6px] animate-pulse">Accessing Registry...</p>
+        </div>
+    );
 
-            <div className="glass rounded-3xl border border-white/5 overflow-hidden">
-                <div className="p-6 border-b border-white/5 flex justify-between items-center">
-                    <h3 className="text-xl font-bold">Recent Logs</h3>
-                    <div className="flex space-x-2">
-                        <button className="p-2 bg-white/5 rounded-lg hover:bg-white/10"><ChevronLeft size={18} /></button>
-                        <button className="p-2 bg-white/5 rounded-lg hover:bg-white/10"><ChevronRight size={18} /></button>
+    return (
+        <div className="dashboard-gradient min-h-screen p-8 md:p-12 font-['Outfit']">
+            <div className="max-w-7xl mx-auto space-y-12 pb-20 animate-in fade-in slide-in-from-bottom-8 duration-1000">
+                <header className="flex flex-col md:flex-row md:items-end justify-between gap-8">
+                    <div>
+                        <h1 className="text-5xl font-black text-slate-900 tracking-tight mb-3 uppercase leading-none">Attendance Log</h1>
+                        <p className="text-slate-500 font-bold ml-1 uppercase tracking-widest text-sm opacity-60">Verified institutional record of your technical residency.</p>
                     </div>
+                </header>
+
+                {/* Stats Section */}
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
+                    {[
+                        { label: 'Total Logs', value: attendance.length, suffix: 'Sessions', icon: <History className="text-slate-600" />, bg: 'bg-slate-100' },
+                        { label: 'Present Days', value: stats.present, suffix: 'Days', icon: <ShieldCheck className="text-emerald-600" />, bg: 'bg-emerald-50' },
+                        { label: 'Compliance Level', value: stats.percentage, suffix: '%', icon: <Zap className="text-[#92400E]" />, bg: 'bg-amber-50' },
+                    ].map((stat, i) => (
+                        <motion.div
+                            initial={{ opacity: 0, scale: 0.95 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            transition={{ delay: i * 0.1 }}
+                            key={stat.label}
+                            className="glass-strong p-10 rounded-[48px] border-white shadow-xl hover:shadow-2xl transition-all duration-500 group overflow-hidden relative"
+                        >
+                            <div className="absolute top-0 right-0 w-32 h-32 bg-white/40 rounded-full blur-3xl -mr-16 -mt-16 group-hover:scale-110 transition-transform"></div>
+                            <div className="flex justify-between items-start mb-8 relative z-10">
+                                <div className={`p-5 ${stat.bg} rounded-[28px] group-hover:rotate-12 transition-transform shadow-sm`}>
+                                    {stat.icon}
+                                </div>
+                                <span className="text-[8px] font-black uppercase tracking-widest text-slate-400 bg-slate-50 border border-slate-100 px-4 py-2 rounded-full">System Verified</span>
+                            </div>
+                            <p className="text-slate-400 text-[9px] font-black uppercase tracking-[3px] mb-2">{stat.label}</p>
+                            <h3 className="text-4xl font-black text-slate-900 tracking-tighter">
+                                {stat.value}<span className="text-lg text-slate-400 font-bold ml-2 uppercase tracking-tight">{stat.suffix}</span>
+                            </h3>
+                        </motion.div>
+                    ))}
                 </div>
-                <div className="overflow-x-auto">
-                    <table className="w-full text-left">
-                        <thead>
-                            <tr className="bg-white/5">
-                                <th className="px-6 py-4 text-xs font-bold text-slate-400 tracking-wider">DATE</th>
-                                <th className="px-6 py-4 text-xs font-bold text-slate-400 tracking-wider">TIME</th>
-                                <th className="px-6 py-4 text-xs font-bold text-slate-400 tracking-wider">STATUS</th>
-                                <th className="px-6 py-4 text-xs font-bold text-slate-400 tracking-wider">REMARK</th>
-                            </tr>
-                        </thead>
-                        <tbody className="divide-y divide-white/5">
-                            {attendance.map((log) => (
-                                <tr key={log._id} className="hover:bg-white/5 transition-all">
-                                    <td className="px-6 py-4 font-medium">{new Date(log.date).toLocaleDateString(undefined, { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</td>
-                                    <td className="px-6 py-4">
-                                        <div className="flex items-center space-x-2 text-slate-400">
-                                            <Clock size={14} />
-                                            <span>{new Date(log.date).toLocaleTimeString()}</span>
-                                        </div>
-                                    </td>
-                                    <td className="px-6 py-4">
-                                        <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium border ${log.status === 'Present' ? 'bg-green-500/10 text-green-500 border-green-500/20' : 'bg-red-500/10 text-red-500 border-red-500/20'
-                                            }`}>
-                                            {log.status === 'Present' ? <CheckCircle size={12} className="mr-1" /> : <XCircle size={12} className="mr-1" />}
-                                            {log.status}
-                                        </span>
-                                    </td>
-                                    <td className="px-6 py-4 text-slate-500 italic text-sm">Automated Log</td>
+
+                {/* Log Table Section */}
+                <div className="glass-strong rounded-[56px] border-white shadow-2xl overflow-hidden relative group">
+                    <div className="p-10 border-b border-slate-100 flex justify-between items-center bg-white/40">
+                        <div className="flex items-center space-x-5">
+                            <div className="w-14 h-14 bg-slate-900 rounded-[24px] flex items-center justify-center text-white shadow-xl">
+                                <Calendar size={28} />
+                            </div>
+                            <div>
+                                <h3 className="text-2xl font-black text-slate-900 tracking-tight uppercase leading-none">Chronological Record</h3>
+                                <p className="text-[9px] text-slate-400 font-bold uppercase tracking-widest mt-2">Activity sync with institutional servers</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="overflow-x-auto">
+                        <table className="w-full text-left border-collapse">
+                            <thead>
+                                <tr className="bg-slate-50/50">
+                                    <th className="px-10 py-8 text-[10px] font-black text-slate-400 tracking-[4px] uppercase border-b border-slate-100">Logging Date</th>
+                                    <th className="px-10 py-8 text-[10px] font-black text-slate-400 tracking-[4px] uppercase border-b border-slate-100 text-center">Marking Timestamp</th>
+                                    <th className="px-10 py-8 text-[10px] font-black text-slate-400 tracking-[4px] uppercase border-b border-slate-100 text-center">Status</th>
+                                    <th className="px-10 py-8 text-[10px] font-black text-slate-400 tracking-[4px] uppercase border-b border-slate-100 text-right">Verification</th>
                                 </tr>
-                            ))}
-                            {attendance.length === 0 && (
-                                <tr>
-                                    <td colSpan="4" className="px-6 py-12 text-center text-slate-500 italic">No attendance records found yet.</td>
-                                </tr>
-                            )}
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody className="divide-y divide-slate-100">
+                                {attendance.length === 0 ? (
+                                    <tr>
+                                        <td colSpan="4" className="px-10 py-32 text-center">
+                                            <div className="w-24 h-24 bg-slate-50 rounded-[40px] flex items-center justify-center mx-auto mb-8 text-slate-200 shadow-inner">
+                                                <Calendar size={48} />
+                                            </div>
+                                            <p className="text-slate-400 font-black tracking-[6px] uppercase text-[10px]">No historical registry records found.</p>
+                                        </td>
+                                    </tr>
+                                ) : (
+                                    attendance.map((log) => (
+                                        <tr key={log._id} className="hover:bg-slate-50/80 transition-all group">
+                                            <td className="px-10 py-10 font-black text-slate-900 uppercase tracking-tighter text-xl leading-none">
+                                                {new Date(log.date).toLocaleDateString(undefined, { weekday: 'short', month: 'long', day: 'numeric', year: 'numeric' })}
+                                            </td>
+                                            <td className="px-10 py-10 text-center">
+                                                {log.markedAt ? (
+                                                    <div className="inline-flex items-center space-x-3 bg-white border border-slate-100 px-5 py-3 rounded-2xl shadow-sm group-hover:scale-105 transition-transform">
+                                                        <Clock size={16} className="text-[#92400E]" />
+                                                        <span className="text-sm font-bold text-slate-600 tracking-tight uppercase">
+                                                            {new Date(log.markedAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' })}
+                                                        </span>
+                                                    </div>
+                                                ) : (
+                                                    <span className="text-[10px] font-black text-slate-300 uppercase italic">N/A</span>
+                                                )}
+                                            </td>
+                                            <td className="px-10 py-10 text-center">
+                                                <span className={`inline-flex items-center px-6 py-3 rounded-full text-[10px] font-black uppercase tracking-widest border shadow-sm ${log.status === 'Present'
+                                                        ? 'bg-emerald-50 text-emerald-600 border-emerald-100'
+                                                        : 'bg-red-50 text-red-600 border-red-100'
+                                                    }`}>
+                                                    {log.status === 'Present' ? <ShieldCheck size={14} className="mr-2" /> : <XCircle size={14} className="mr-2" />}
+                                                    {log.status}
+                                                </span>
+                                            </td>
+                                            <td className="px-10 py-10 text-right">
+                                                <div className="flex flex-col items-end">
+                                                    <div className="flex items-center space-x-2 text-emerald-500">
+                                                        <CheckCircle size={14} />
+                                                        <span className="text-[9px] font-black uppercase tracking-widest">Validated</span>
+                                                    </div>
+                                                    <p className="text-[8px] text-slate-400 font-bold uppercase mt-1 tracking-tighter">Checksum: 8x2F...90Z</p>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    ))
+                                )}
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>

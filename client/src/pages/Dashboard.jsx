@@ -4,6 +4,7 @@ import StudentDashboard from './StudentDashboard';
 import SecretaryDashboard from './SecretaryDashboard';
 import AdminDashboard from './AdminDashboard';
 import StaffDashboard from './StaffDashboard';
+import ChairpersonDashboard from './ChairpersonDashboard';
 
 const Dashboard = () => {
     const { user, currentRole, switchRole } = useAuth();
@@ -22,6 +23,8 @@ const Dashboard = () => {
                 return <AdminDashboard />;
             case 'staff':
                 return <StaffDashboard />;
+            case 'chairperson':
+                return <ChairpersonDashboard />;
             default:
                 return (
                     <div className="flex items-center justify-center h-[70vh]">
@@ -44,8 +47,8 @@ const Dashboard = () => {
                         <button
                             onClick={() => switchRole('student')}
                             className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${roleToRender === 'student'
-                                    ? 'bg-blue-600 text-white shadow-lg shadow-blue-600/20'
-                                    : 'hover:bg-white/5 text-slate-300'
+                                ? 'bg-blue-600 text-white shadow-lg shadow-blue-600/20'
+                                : 'hover:bg-white/5 text-slate-300'
                                 }`}
                         >
                             Student View
@@ -55,8 +58,8 @@ const Dashboard = () => {
                         <button
                             onClick={() => switchRole('secretary')}
                             className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${roleToRender === 'secretary'
-                                    ? 'bg-purple-600 text-white shadow-lg shadow-purple-600/20'
-                                    : 'hover:bg-white/5 text-slate-300'
+                                ? 'bg-purple-600 text-white shadow-lg shadow-purple-600/20'
+                                : 'hover:bg-white/5 text-slate-300'
                                 }`}
                         >
                             Secretary View

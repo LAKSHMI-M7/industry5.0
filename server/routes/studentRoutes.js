@@ -8,7 +8,9 @@ const {
     submitDailyUpdate,
     getDailyUpdates,
     submitWeeklyReport,
-    getWeeklyReports
+    getWeeklyReports,
+    addEvent,
+    getEvents
 } = require('../controllers/studentController');
 const { protect, authorize } = require('../middleware/authMiddleware');
 
@@ -31,5 +33,9 @@ router.route('/daily-update')
 router.route('/weekly-report')
     .post(submitWeeklyReport)
     .get(getWeeklyReports);
+
+router.route('/events')
+    .post(addEvent)
+    .get(getEvents);
 
 module.exports = router;
