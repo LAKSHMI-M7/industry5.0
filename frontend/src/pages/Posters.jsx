@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Upload, Trash2, Image, Plus, X, Calendar, Eye, AlertCircle, CheckCircle2, Loader2 } from 'lucide-react';
+import { getImageUrl } from '../utils/imageUrl';
 
 const Posters = () => {
     const [posters, setPosters] = useState([]);
@@ -223,7 +224,7 @@ const Posters = () => {
                             >
                                 <div className="relative overflow-hidden h-52">
                                     <img
-                                        src={poster.imageUrl}
+                                        src={getImageUrl(poster.imageUrl)}
                                         alt={poster.title}
                                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                                     />
@@ -290,7 +291,7 @@ const Posters = () => {
                             >
                                 <X size={28} />
                             </button>
-                            <img src={previewPoster.imageUrl} alt={previewPoster.title} className="w-full rounded-2xl shadow-2xl" />
+                            <img src={getImageUrl(previewPoster.imageUrl)} alt={previewPoster.title} className="w-full rounded-2xl shadow-2xl" />
                             <div className="mt-4 text-white">
                                 <h3 className="text-2xl font-black">{previewPoster.title}</h3>
                                 {previewPoster.description && <p className="text-white/70 mt-1">{previewPoster.description}</p>}

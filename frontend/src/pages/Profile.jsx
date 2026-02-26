@@ -3,6 +3,7 @@ import axios from 'axios';
 import { User, Mail, Hash, BookOpen, Layers, Github, Linkedin, Save, Phone, GraduationCap, Award, Camera, Cpu, Target, Loader2 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useAuth } from '../context/AuthContext';
+import { getImageUrl } from '../utils/imageUrl';
 
 const Profile = () => {
     const { updateUser } = useAuth();
@@ -156,7 +157,7 @@ const Profile = () => {
                                 <div className="relative inline-block mb-12">
                                     <div className="absolute inset-0 bg-[#92400E] blur-3xl opacity-20 rounded-full scale-110"></div>
                                     <img
-                                        src={profile?.user?.avatar || `https://ui-avatars.com/api/?name=${encodeURIComponent(profile?.user?.name || 'User')}&background=92400E&color=fff&size=200&bold=true`}
+                                        src={getImageUrl(profile?.user?.avatar) || `https://ui-avatars.com/api/?name=${encodeURIComponent(profile?.user?.name || 'User')}&background=92400E&color=fff&size=200&bold=true`}
                                         className="w-44 h-44 rounded-[52px] mx-auto border-8 border-white shadow-2xl object-cover hover:scale-105 hover:-rotate-3 transition-all duration-700 relative z-10"
                                         alt="Profile"
                                     />

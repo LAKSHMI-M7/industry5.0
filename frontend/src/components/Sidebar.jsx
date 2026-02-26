@@ -15,6 +15,7 @@ import {
     Settings
 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
+import { getImageUrl } from '../utils/imageUrl';
 
 const Sidebar = () => {
     const { user, logout, currentRole, isAuthenticating } = useAuth();
@@ -43,7 +44,7 @@ const Sidebar = () => {
             <div className="flex items-center space-x-3 p-3 rounded-2xl bg-white/50 mb-2 transition-all duration-300 hover:bg-white border border-slate-200/50">
                 <div className="relative flex-shrink-0">
                     <img
-                        src={user?.avatar || `https://ui-avatars.com/api/?name=${encodeURIComponent(user?.name || 'User')}&background=92400E&color=fff&bold=true`}
+                        src={getImageUrl(user?.avatar) || `https://ui-avatars.com/api/?name=${encodeURIComponent(user?.name || 'User')}&background=92400E&color=fff&bold=true`}
                         alt="Profile"
                         className="w-8 h-8 rounded-full object-cover border-2 border-white"
                     />

@@ -3,6 +3,7 @@ import axios from 'axios';
 import { Users, Search, Mail, ExternalLink, Filter, X, ChevronRight, UserPlus, Info } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
+import { getImageUrl } from '../utils/imageUrl';
 
 const StudentList = () => {
     const [students, setStudents] = useState([]);
@@ -86,7 +87,7 @@ const StudentList = () => {
                                                 <div className="flex items-center space-x-5">
                                                     <div className="relative">
                                                         <img
-                                                            src={student.user?.avatar || `https://ui-avatars.com/api/?name=${encodeURIComponent(student.user?.name || 'S')}&background=9A4A17&color=fff&bold=true`}
+                                                            src={getImageUrl(student.user?.avatar) || `https://ui-avatars.com/api/?name=${encodeURIComponent(student.user?.name || 'S')}&background=9A4A17&color=fff&bold=true`}
                                                             className="w-16 h-16 rounded-[24px] object-cover border-4 border-white shadow-lg group-hover:scale-110 transition-transform duration-500"
                                                             alt="Avatar"
                                                         />
