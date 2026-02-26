@@ -1,6 +1,7 @@
 const express = require('express');
 const dotenv = require('dotenv');
 const cors = require('cors');
+const helmet = require('helmet');
 const connectDB = require('./config/db');
 
 dotenv.config();
@@ -10,13 +11,19 @@ connectDB();
 
 const app = express();
 
+// Security: Helmet for basic production security
+app.use(helmet({
+    crossOriginResourcePolicy: false, // Essential for serving images from /uploads
+}));
+
 // Security: Trust proxy (needed for Render/Vercel load balancers)
 app.set("trust proxy", 1);
 
 // Configure Production CORS
 const allowedOrigins = [
-    process.env.FRONTEND_URL, 
-    'http://localhost:5173', // Local dev
+    'https://industry-5-0.vercel.app',
+    process.env.FRONTEND_URL,
+    'http://localhost:5173',
     'http://127.0.0.1:5173'
 ].filter(Boolean);
 
