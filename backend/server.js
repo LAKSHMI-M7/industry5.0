@@ -10,7 +10,24 @@ connectDB();
 
 const app = express();
 
-app.use(cors());
+// CORS configuration - Allow Vercel and Localhost
+const allowedOrigins = [
+    'http://localhost:5173',
+    'http://localhost:3000',
+    process.env.FRONTEND_URL // To be set in Render as the Vercel domain
+].filter(Boolean);
+
+app.use(cors({
+    origin: (origin, callback) => {
+        if (!origin || allowedOrigins.includes(origin)) {
+            callback(null, true);
+        } else {
+            callback(new Error('Not allowed by CORS'));
+        }
+    },
+    credentials: true
+}));
+
 app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ extended: true, limit: '50mb' }));
 
@@ -29,16 +46,15 @@ app.get('/', (req, res) => {
     res.send('API is running...');
 });
 
+// Health check endpoint
+app.get('/health', (req, res) => {
+    res.status(200).json({ status: 'ok', timestamp: new Date().toISOString() });
+});
+
 const PORT = process.env.PORT || 5000;
 
-if (!process.env.PORT && process.env.NODE_ENV === 'production') {
-    console.warn('WARNING: PORT is not defined in environment variables. Defaulting to 5000.');
-}
-
-// Only listen if not running as a Vercel function
-if (process.env.NODE_ENV !== 'production') {
-    app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
-}
+app.listen(PORT, () => {
+    console.log(`🚀 Server running in ${process.env.NODE_ENV || 'development'} mode on port ${PORT}`);
+});
 
 module.exports = app;
-
