@@ -1,0 +1,20 @@
+services:
+  - type: web
+    name: industry5-backend
+    env: node
+    plan: free
+    region: ohio # Render default
+    buildCommand: npm install
+    startCommand: node server.js
+    rootDir: backend
+    envVars:
+      - key: MONGO_URI
+        sync: false # Set in Render Dashboard
+      - key: MONGO_URI_LOCAL
+        sync: false
+      - key: JWT_SECRET
+        sync: false
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 10000 # Render free tier default port
