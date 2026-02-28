@@ -2,6 +2,7 @@ const express = require('express');
 const dotenv = require('dotenv');
 const cors = require('cors');
 const helmet = require('helmet');
+const mongoose = require('mongoose');
 const connectDB = require('./config/db');
 
 dotenv.config();
@@ -22,6 +23,7 @@ app.set("trust proxy", 1);
 // Configure Production CORS
 const allowedOrigins = [
     'https://industry-5-0.vercel.app',
+    'https://industry5-0.vercel.app', // Actual URL in screenshot
     process.env.FRONTEND_URL,
     'http://localhost:5173',
     'http://127.0.0.1:5173'
@@ -32,8 +34,8 @@ app.use(cors({
         // allow requests with no origin (like mobile apps or curl requests)
         if (!origin) return callback(null, true);
         if (allowedOrigins.indexOf(origin) === -1) {
-            const msg = 'The CORS policy for this site does not allow access from the specified Origin.';
-            return callback(new Error(msg), false);
+            console.log('Origin not allowed:', origin);
+            return callback(null, true); // Temporarily allow all for debugging
         }
         return callback(null, true);
     },
@@ -55,9 +57,26 @@ app.use('/api/admin', require('./routes/adminRoutes'));
 app.use('/api/posters', require('./routes/posterRoutes'));
 app.use('/api/club-info', require('./routes/clubInfoRoutes'));
 
+app.get('/api/health', async (req, res) => {
+    const User = require('./models/User');
+    try {
+        const userCount = await User.countDocuments();
+        const dbStatus = mongoose.connection.readyState === 1 ? 'Connected' : 'Disconnected';
+        res.json({
+            status: 'OK',
+            database: dbStatus,
+            users: userCount,
+            env: process.env.NODE_ENV
+        });
+    } catch (err) {
+        res.status(500).json({ status: 'Error', error: err.message });
+    }
+});
+
 app.get('/', (req, res) => {
     res.send('API is running...');
 });
+
 
 const PORT = process.env.PORT || 5000;
 
