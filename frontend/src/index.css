@@ -2,6 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
+html, body {
+  height: 100%;
+  margin: 0;
+  overflow: hidden; /* Prevent global scroll for university-style portal */
+}
+
+
 :root {
   --primary: #94A3B8; /* Cement Grey */
   --secondary: #FFFFFF;
@@ -11,6 +18,31 @@
   --sidebar: #E2E8F0; /* Light Cement Grey */
   --card-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.07);
 }
+
+.page-wrapper {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.login-container {
+  flex: 1;
+  display: flex;
+  position: relative;
+  overflow: hidden;
+}
+
+.site-footer {
+  text-align: center;
+  font-size: 13px;
+  color: #8a8a8a;
+  padding: 12px 0;
+  border-top: 1px solid #e5e5e5;
+  background: white;
+  z-index: 30;
+}
+
 
 body {
   margin: 0;
