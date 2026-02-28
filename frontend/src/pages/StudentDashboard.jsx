@@ -272,11 +272,12 @@ const StudentDashboard = () => {
                         <div className="bg-white rounded-[56px] border border-slate-100 p-12 shadow-sm">
                             <div className="flex items-center justify-between mb-12">
                                 <div>
-                                    <h3 className="text-3xl font-black text-slate-900 tracking-tight uppercase leading-none">Recent Activity</h3>
-                                    <p className="text-[10px] text-slate-400 font-bold uppercase tracking-widest mt-3 italic leading-none">Institutional ledger of submitted activities</p>
+                                    <h3 className="text-3xl font-black text-slate-900 tracking-tight uppercase leading-none">Recent Activities</h3>
+                                    <p className="text-[10px] text-slate-400 font-bold uppercase tracking-widest mt-3 opacity-60">Official Record of Submitted Activities</p>
                                 </div>
-                                <button onClick={() => navigate('/attendance')} className="text-[9px] font-black uppercase tracking-[2px] text-[#92400E] border border-amber-100 bg-amber-50 px-6 py-3 rounded-full hover:bg-amber-100 transition-colors shadow-sm">Audit History</button>
+                                <button onClick={() => navigate('/attendance')} className="text-[9px] font-bold uppercase tracking-[2px] text-[#92400E] border border-amber-100 bg-amber-50 px-6 py-3 rounded-full hover:bg-amber-100 transition-colors shadow-sm">View Full History</button>
                             </div>
+
                             <div className="space-y-6">
                                 {recentActivities.length > 0 ? recentActivities.map((activity, i) => (
                                     <motion.div

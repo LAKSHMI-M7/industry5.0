@@ -169,15 +169,16 @@ const AdminDashboard = () => {
                         </div>
                         <div className="space-y-4">
                             {[
-                                { user: 'Secretary Panel', action: 'Daily Update Verified', time: '12s ago' },
-                                { user: 'Admin Root', action: 'User Permissions Modified', time: '5m ago' },
-                                { user: 'System Sync', action: 'Attendance Records Normalized', time: '18m ago' }
+                                { user: 'Secretary Panel', action: 'Daily Update Reviewed', time: '12s ago' },
+                                { user: 'Admin Account', action: 'User Permissions Updated', time: '5m ago' },
+                                { user: 'System Update', action: 'Attendance Records Verified', time: '18m ago' }
                             ].map((log, i) => (
                                 <div key={i} className="flex items-center justify-between p-4 bg-[#F8FAFC] rounded-2xl border border-slate-200/50">
                                     <div className="flex items-center space-x-4">
                                         <div className="w-8 h-8 rounded-full bg-white border border-slate-200 flex items-center justify-center">
                                             <Activity size={14} className="text-[#9A4A17]" />
                                         </div>
+
                                         <div>
                                             <p className="text-[11px] font-black text-slate-900 uppercase">{log.user}</p>
                                             <p className="text-[10px] text-slate-500 font-medium">{log.action}</p>

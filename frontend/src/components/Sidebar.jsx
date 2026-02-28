@@ -114,14 +114,16 @@ const Sidebar = () => {
                         alt="Logo"
                         className="w-10 h-10 rounded-full object-cover shadow-md border border-white bg-white flex-shrink-0"
                     />
-                    <h1 className="text-lg font-black text-slate-900 tracking-tight leading-none">I5C HUB</h1>
+                    <h1 className="text-lg font-black text-slate-900 tracking-tight leading-none uppercase">Club Portal</h1>
                 </div>
+
                 <div className="h-0.5 w-8 bg-[#92400E]/20 rounded-full"></div>
             </div>
 
             {/* Navigation Section */}
             <div className="flex-1 px-4 mt-6 erp-nav-section select-none">
-                <p className="px-3 text-[9px] font-black text-slate-400 uppercase tracking-[3px] mb-4 opacity-50">University Matrix</p>
+                <p className="px-3 text-[9px] font-bold text-slate-400 uppercase tracking-[3px] mb-4 opacity-50 font-serif">Main Menu</p>
+
                 <nav className="space-y-1">
                     {activeRoutes.map((route) => (
                         <NavLink
@@ -129,7 +131,8 @@ const Sidebar = () => {
                             to={route.path}
                             className={({ isActive }) =>
                                 `flex items-center space-x-3 px-4 py-2.5 rounded-xl transition-all duration-300 group erp-nav-item ${isActive
-                                    ? 'bg-[#9A4A17] text-white shadow-lg shadow-amber-900/20 font-bold'
+                                    ? 'bg-[#9A4A17] text-white shadow-lg shadow-amber-900/20'
+
                                     : 'text-slate-600 hover:bg-white hover:text-slate-900'
                                 }`
                             }
