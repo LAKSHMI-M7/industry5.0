@@ -50,12 +50,13 @@ const Login = () => {
 
                         <div className="flex items-center mb-2">
                             <img
-                                src="/logo.png"
+                                src="/assets/logo.png"
                                 alt="Industry 5.0 Logo"
                                 className="club-logo"
                             />
                             <h2 className="text-3xl font-black text-[#92400E] tracking-tight leading-none uppercase">Industry 5.0 Club Portal</h2>
                         </div>
+
 
 
                         <p className="text-sm font-bold text-slate-400 tracking-widest ml-[66px] uppercase">
