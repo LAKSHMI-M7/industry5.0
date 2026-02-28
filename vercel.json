@@ -23,21 +23,18 @@
       "destination": "/backend/server.js"
     },
     {
-      "source": "/assets/(.*)",
-      "destination": "/frontend/assets/$1"
+      "source": "/assets/:path*",
+      "destination": "/frontend/assets/:path*"
     },
     {
-      "source": "/logo.png",
-      "destination": "/frontend/logo.png"
+      "source": "/:file(logo\\.png|vite\\.svg|profile\\.jpg|favicon\\.ico)",
+      "destination": "/frontend/:file"
     },
     {
-      "source": "/vite.svg",
-      "destination": "/frontend/vite.svg"
-    },
-    {
-      "source": "/((?!api|uploads|assets|logo|vite).*)",
+      "source": "/((?!api|uploads|assets).*)",
       "destination": "/frontend/index.html"
     }
+
 
 
   ]
