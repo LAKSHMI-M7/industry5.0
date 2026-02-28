@@ -138,12 +138,13 @@ const StudentDashboard = () => {
             <div className="dashboard-gradient min-h-screen flex flex-col items-center justify-center p-8 space-y-8 font-['Outfit']">
                 <div className="relative">
                     <div className="w-24 h-24 border-4 border-[#92400E]/20 border-t-[#92400E] rounded-full animate-spin"></div>
-                    <Cpu size={32} className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[#92400E] animate-pulse" />
+                    <User size={32} className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[#92400E] animate-pulse" />
                 </div>
-                <p className="text-slate-400 font-black uppercase tracking-[6px] animate-pulse text-center">
-                    Authenticating Node<br /><span className="text-[10px] mt-2 block opacity-50">Industrial Compliance Check</span>
+                <p className="text-slate-400 font-bold tracking-[2px] animate-pulse text-center">
+                    Loading your dashboard...<br /><span className="text-[10px] mt-2 block opacity-50 font-medium">Please wait a moment</span>
                 </p>
             </div>
+
         );
     }
 
@@ -152,9 +153,10 @@ const StudentDashboard = () => {
             <div className="max-w-7xl mx-auto space-y-12 pb-20 animate-in fade-in slide-in-from-bottom-8 duration-1000">
                 <header className="flex flex-col md:flex-row md:items-end justify-between gap-8">
                     <div>
-                        <h1 className="text-5xl font-black text-slate-900 tracking-tight mb-3 uppercase">Nexus Dashboard</h1>
-                        <p className="text-slate-500 font-bold ml-1 uppercase tracking-widest text-sm opacity-60">Welcome, {user?.name}. System status is operational.</p>
+                        <h1 className="text-5xl font-black text-slate-900 tracking-tight mb-3">Student Dashboard</h1>
+                        <p className="text-slate-500 font-bold ml-1 tracking-widest text-sm opacity-60">Welcome, {user?.name}</p>
                     </div>
+
 
                     <div className="flex items-center space-x-6">
                         <AnimatePresence mode="wait">
@@ -168,15 +170,16 @@ const StudentDashboard = () => {
                                     whileTap={{ scale: 0.95 }}
                                     onClick={markAttendance}
                                     disabled={markingAttendance}
-                                    className="bg-slate-900 px-10 py-5 rounded-[28px] font-black shadow-2xl shadow-slate-900/20 hover:bg-black transition-all text-white flex items-center space-x-4 group uppercase tracking-widest text-[10px]"
+                                    className="bg-slate-900 px-10 py-5 rounded-[28px] font-black shadow-2xl shadow-slate-900/20 hover:bg-black transition-all text-white flex items-center space-x-4 group tracking-widest text-[10px]"
                                 >
                                     {markingAttendance ? (
                                         <div className="w-4 h-4 border-2 border-white/20 border-t-white rounded-full animate-spin" />
                                     ) : (
-                                        <ShieldCheck size={20} className="group-hover:text-amber-400 transition-colors" />
+                                        <CheckCircle size={20} className="group-hover:text-amber-400 transition-colors" />
                                     )}
-                                    <span>{markingAttendance ? 'Processing...' : 'Mark Present'}</span>
+                                    <span>{markingAttendance ? 'Processing...' : 'Mark Today Attendance'}</span>
                                 </motion.button>
+
                             ) : (
                                 <motion.div
                                     key="marked-badge"
@@ -195,11 +198,12 @@ const StudentDashboard = () => {
                 {/* Stats Grid */}
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
                     {[
-                        { label: 'Attendance', value: `${stats.attendance}%`, icon: <Calendar className="text-[#92400E]" />, trend: 'Registry Log', bg: 'bg-amber-50' },
-                        { label: 'Daily Updates', value: stats.updatesCount, icon: <Cpu className="text-slate-600" />, trend: 'Journal Active', bg: 'bg-slate-100' },
-                        { label: 'Weekly Reports', value: stats.reportsCount, icon: <Award className="text-[#92400E]" />, trend: 'Verification', bg: 'bg-amber-50' },
-                        { label: 'Sync Status', value: 'Prime', icon: <Activity className="text-slate-600" />, trend: 'Protocol 100%', bg: 'bg-slate-100' },
+                        { label: 'Attendance Percentage', value: `${stats.attendance}%`, icon: <Calendar className="text-[#92400E]" />, trend: 'Attendance Record', bg: 'bg-amber-50' },
+                        { label: 'Daily Activity Log', value: stats.updatesCount, icon: <FileText className="text-slate-600" />, trend: 'Daily Update Status', bg: 'bg-slate-100' },
+                        { label: 'Weekly Report Submission', value: stats.reportsCount, icon: <Award className="text-[#92400E]" />, trend: 'Report Review Status', bg: 'bg-amber-50' },
+                        { label: 'Profile Status', value: 'Active', icon: <Activity className="text-slate-600" />, trend: 'Account Status', bg: 'bg-slate-100' },
                     ].map((item, i) => (
+
                         <motion.div
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
@@ -228,9 +232,10 @@ const StudentDashboard = () => {
                             <div className="absolute top-0 right-0 w-80 h-80 bg-[#92400E]/5 rounded-full blur-3xl -mr-40 -mt-40"></div>
                             <div className="flex items-center justify-between mb-12 relative z-10">
                                 <div>
-                                    <h3 className="text-3xl font-black text-slate-900 tracking-tight uppercase">Operational Hub</h3>
-                                    <p className="text-slate-400 font-bold text-sm mt-1 uppercase tracking-widest opacity-60">Execute daily protocols and submit report logs</p>
+                                    <h3 className="text-3xl font-black text-slate-900 tracking-tight uppercase">Student Activity Panel</h3>
+                                    <p className="text-slate-400 font-bold text-sm mt-1 tracking-widest opacity-60">Submit your daily update and weekly report here</p>
                                 </div>
+
                                 <div className="w-14 h-14 bg-white/60 rounded-2xl flex items-center justify-center shadow-inner">
                                     <Zap className="text-[#92400E] animate-bounce" size={24} />
                                 </div>
@@ -331,8 +336,9 @@ const StudentDashboard = () => {
 
                                 <button onClick={() => navigate('/profile')} className="w-full py-5 bg-slate-50 hover:bg-slate-900 border border-slate-100 rounded-[24px] text-slate-900 hover:text-white font-black uppercase tracking-widest text-[10px] transition-all shadow-sm flex items-center justify-center space-x-3 group/btn">
                                     <User size={16} className="group-hover/btn:scale-110 transition-transform" />
-                                    <span>Nexus Identity</span>
+                                    <span>View Profile</span>
                                 </button>
+
                             </div>
                         </div>
 

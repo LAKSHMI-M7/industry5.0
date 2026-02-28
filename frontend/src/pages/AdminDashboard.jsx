@@ -39,8 +39,9 @@ const AdminDashboard = () => {
                     <img src="/logo.png" alt="Logo" className="w-12 h-12 rounded-full animate-pulse" />
                 </div>
             </div>
-            <p className="text-[10px] font-black text-slate-400 uppercase tracking-[8px] animate-pulse">Initializing Portal...</p>
+            <p className="text-[10px] font-bold text-slate-400 tracking-[4px] animate-pulse">Loading Dashboard...</p>
         </div>
+
     );
 
     const highlightCards = [
@@ -74,17 +75,18 @@ const AdminDashboard = () => {
             <div className="max-w-7xl mx-auto space-y-10 pb-24">
                 <header className="flex flex-col md:flex-row md:items-end justify-between gap-6 px-1">
                     <div>
-                        <h1 className="text-4xl font-black text-slate-900 tracking-tight mb-2 uppercase">Admin Control Panel</h1>
-                        <p className="text-slate-500 font-bold uppercase tracking-widest text-xs opacity-70">
+                        <h1 className="text-4xl font-black text-slate-900 tracking-tight mb-2">Administrator Dashboard</h1>
+                        <p className="text-slate-500 font-bold tracking-widest text-xs opacity-70">
                             Manage students, attendance, and activity reports
                         </p>
                     </div>
                     <div className="flex items-center space-x-4">
                         <div className="bg-white/80 backdrop-blur-md px-6 py-3 rounded-2xl border border-white shadow-sm flex items-center space-x-3">
                             <div className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse"></div>
-                            <span className="text-slate-900 font-black uppercase tracking-[2px] text-[9px]">Portal Active</span>
+                            <span className="text-slate-900 font-black tracking-[2px] text-[9px]">System Active</span>
                         </div>
                     </div>
+
                 </header>
 
                 {/* Top Section - Large Highlight Cards */}
@@ -157,12 +159,13 @@ const AdminDashboard = () => {
                     <div className="lg:col-span-2 bg-white p-10 rounded-[28px] border border-[#E5E7EB] shadow-sm">
                         <div className="flex items-center justify-between mb-8">
                             <div>
-                                <h3 className="text-xl font-black text-slate-900 uppercase tracking-tight">System Activity Log</h3>
-                                <p className="text-[10px] text-slate-400 font-bold uppercase tracking-widest">Academic portal operations</p>
+                                <h3 className="text-xl font-black text-slate-900">Recent Dashboard Activity</h3>
+                                <p className="text-[10px] text-slate-400 font-bold tracking-widest">Recent administrative updates</p>
                             </div>
                             <div className="px-4 py-2 bg-slate-50 rounded-full border border-slate-100">
-                                <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest">Live Feed</span>
+                                <span className="text-[9px] font-bold text-slate-400 tracking-widest">Live Updates</span>
                             </div>
+
                         </div>
                         <div className="space-y-4">
                             {[
@@ -191,14 +194,15 @@ const AdminDashboard = () => {
                             <div className="p-4 bg-amber-50 rounded-2xl border border-amber-100 w-fit mb-6 text-[#9A4A17]">
                                 <Shield size={24} />
                             </div>
-                            <h3 className="text-xl font-black text-slate-900 uppercase tracking-tight leading-tight mb-4 text-left">Academic Data Compliance</h3>
+                            <h3 className="text-xl font-black text-slate-900 tracking-tight leading-tight mb-4 text-left">Data Privacy & Guidelines</h3>
                             <p className="text-slate-500 text-xs font-medium leading-relaxed">
-                                This control panel is restricted to authorized administrative personnel. All actions are logged under institutional security protocols.
+                                This dashboard is restricted to authorized administrative personnel. All activities are recorded for security purposes.
                             </p>
                         </div>
                         <div className="mt-8 pt-6 border-t border-slate-100">
-                            <p className="text-[9px] font-black text-[#9A4A17] uppercase tracking-[2px]">Authorized Access Only</p>
+                            <p className="text-[9px] font-black text-[#9A4A17] tracking-[2px]">Authorized Access Only</p>
                         </div>
+
                     </div>
                 </div>
             </div>

@@ -78,9 +78,10 @@ const Reports = () => {
             <div className="max-w-7xl mx-auto space-y-12 pb-20 animate-in fade-in slide-in-from-bottom-8 duration-1000">
                 <header className="flex flex-col md:flex-row md:items-end justify-between gap-8">
                     <div>
-                        <h1 className="text-5xl font-black text-slate-900 tracking-tight mb-3 uppercase">Weekly Reports</h1>
-                        <p className="text-slate-500 font-bold ml-1 uppercase tracking-widest text-sm">Review your weekly progress and achievements.</p>
+                        <h1 className="text-5xl font-black text-slate-900 tracking-tight mb-3">Weekly Report Submission</h1>
+                        <p className="text-slate-500 font-bold ml-1 tracking-widest text-sm opacity-60">Submit your weekly report and review your progress.</p>
                     </div>
+
                     <AnimatePresence>
                         {message && (
                             <motion.div
@@ -100,16 +101,17 @@ const Reports = () => {
                     {/* Report Submission */}
                     <div className="glass-strong p-10 md:p-14 rounded-[56px] border-white shadow-2xl h-fit sticky top-28">
                         <div className="flex items-center justify-between mb-12">
-                            <h3 className="text-2xl font-black flex items-center space-x-5 uppercase tracking-tight text-slate-900">
+                            <h3 className="text-2xl font-black flex items-center space-x-5 tracking-tight text-slate-900">
                                 <div className="w-14 h-14 bg-[#92400E] rounded-[22px] flex items-center justify-center shadow-xl shadow-amber-900/30">
                                     <ClipboardList className="text-white" size={28} />
                                 </div>
                                 <span>New Weekly Report</span>
                             </h3>
                             <div className="w-12 h-12 bg-white/60 rounded-2xl flex items-center justify-center shadow-inner">
-                                <Zap size={20} className="text-[#92400E] animate-pulse" />
+                                <Plus size={20} className="text-[#92400E] opacity-50" />
                             </div>
                         </div>
+
 
                         <form onSubmit={handleSubmit} className="space-y-10">
                             <div className="grid grid-cols-2 gap-8">
@@ -224,14 +226,15 @@ const Reports = () => {
                     {/* History */}
                     <div className="space-y-10">
                         <div className="flex items-center justify-between px-4">
-                            <h3 className="text-2xl font-black text-slate-900 tracking-tight uppercase flex items-center space-x-5">
+                            <h3 className="text-2xl font-black text-slate-900 tracking-tight flex items-center space-x-5">
                                 <div className="p-3 bg-white rounded-2xl shadow-sm border border-slate-50"><History className="text-[#92400E]" size={28} /></div>
                                 <span>Report History</span>
                             </h3>
-                            <div className="px-4 py-2 bg-white/60 rounded-full border border-white text-[10px] font-black text-slate-400 uppercase tracking-widest shadow-sm">
-                                Sprints: {reports.length}
+                            <div className="px-4 py-2 bg-white/60 rounded-full border border-white text-[10px] font-bold text-slate-400 tracking-widest shadow-sm">
+                                Total Submissions: {reports.length}
                             </div>
                         </div>
+
 
                         <div className="space-y-10 max-h-[1400px] overflow-y-auto custom-scrollbar p-2">
                             {reports.length === 0 ? (
@@ -318,18 +321,20 @@ const Reports = () => {
                                             {report.secretaryFeedback && (
                                                 <div className="p-10 bg-slate-900 rounded-[48px] text-white shadow-2xl relative overflow-hidden group/feedback mt-6 transform hover:-translate-y-1 transition-transform duration-500">
                                                     <div className="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-full blur-3xl -mr-16 -mt-16 group-hover/feedback:scale-125 transition-transform duration-1000"></div>
-                                                    <p className="text-[10px] font-black text-[#92400E] uppercase tracking-[5px] mb-6 flex items-center space-x-4">
-                                                        <ShieldCheck size={18} />
-                                                        <span>Secretary Feedback</span>
+                                                    <p className="text-[10px] font-bold text-[#92400E] uppercase tracking-[5px] mb-6 flex items-center space-x-4">
+                                                        <CheckCircle2 size={18} />
+                                                        <span>Reviewer Feedback</span>
                                                     </p>
                                                     <p className="text-xl font-black tracking-tight text-white/95 leading-relaxed italic">"{report.secretaryFeedback}"</p>
+
                                                     <div className="mt-8 pt-8 border-t border-white/10 flex items-center justify-between">
                                                         <div className="flex items-center space-x-3 text-white/30">
-                                                            <Cpu size={14} />
-                                                            <span className="text-[8px] font-black uppercase tracking-[3px]">Approved Response</span>
+                                                            <UserCircle size={14} />
+                                                            <span className="text-[8px] font-bold tracking-[3px]">Reviewed Status</span>
                                                         </div>
                                                         <CheckCircle2 size={20} className="text-emerald-400" />
                                                     </div>
+
                                                 </div>
                                             )}
                                         </div>

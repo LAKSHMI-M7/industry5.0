@@ -46,12 +46,13 @@ const SecretaryDashboard = () => {
         <div className="bg-[#F8FAFC] min-h-screen flex flex-col items-center justify-center p-8 font-['Outfit']">
             <div className="relative">
                 <div className="w-20 h-20 border-4 border-[#92400E]/20 border-t-[#92400E] rounded-full animate-spin"></div>
-                <Cpu size={24} className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[#92400E] animate-pulse" />
+                <UserCircle size={24} className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[#92400E] animate-pulse" />
             </div>
-            <p className="mt-6 text-[10px] font-black text-slate-400 uppercase tracking-[6px] animate-pulse text-center">
-                System Registry<br /><span className="mt-2 block opacity-50">Initializing Secretary Panel</span>
+            <p className="mt-6 text-[10px] font-bold text-slate-400 uppercase tracking-[4px] animate-pulse text-center">
+                Loading Panel...<br /><span className="mt-2 block opacity-50 font-medium">Please wait a moment</span>
             </p>
         </div>
+
     );
 
     return (
@@ -59,15 +60,16 @@ const SecretaryDashboard = () => {
             {/* Header Section */}
             <header className="flex flex-col md:flex-row md:items-end justify-between gap-8">
                 <div>
-                    <h1 className="text-5xl font-black text-slate-900 tracking-tight uppercase mb-3">Secretary Dashboard</h1>
-                    <p className="text-slate-500 font-bold ml-1 uppercase tracking-widest text-sm opacity-70">
-                        Manage attendance and verify student submissions
+                    <h1 className="text-5xl font-black text-slate-900 tracking-tight mb-3">Secretary Panel</h1>
+                    <p className="text-slate-500 font-bold ml-1 tracking-widest text-sm opacity-70">
+                        Manage student attendance and review activity submissions
                     </p>
                 </div>
 
+
                 <div className="bg-white px-8 py-4 rounded-[24px] border border-slate-200 shadow-sm flex items-center space-x-6">
                     <div className="text-right">
-                        <p className="text-[8px] font-black text-slate-400 uppercase tracking-widest leading-none mb-1">System Clock</p>
+                        <p className="text-[8px] font-bold text-slate-400 uppercase tracking-widest leading-none mb-1">Current Time</p>
                         <p className="text-slate-900 font-black text-sm uppercase tracking-tighter">
                             {currentTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                         </p>
@@ -75,10 +77,11 @@ const SecretaryDashboard = () => {
                     <div className="h-8 w-px bg-slate-200"></div>
                     <div className="flex items-center space-x-3">
                         <div className="w-10 h-10 rounded-full bg-[#92400E]/10 flex items-center justify-center text-[#92400E]">
-                            <Activity size={20} />
+                            <UserCircle size={20} />
                         </div>
-                        <span className="text-slate-900 font-black uppercase tracking-[3px] text-[10px]">Secretary View</span>
+                        <span className="text-slate-900 font-black tracking-[2px] text-[10px]">Secretary View</span>
                     </div>
+
                 </div>
             </header>
 
@@ -94,10 +97,11 @@ const SecretaryDashboard = () => {
                             <Calendar size={28} />
                         </div>
                         <div className="text-right">
-                            <span className="text-[10px] font-black text-emerald-500 uppercase tracking-widest bg-emerald-50 px-3 py-1 rounded-full border border-emerald-100">Live Sync</span>
+                            <span className="text-[10px] font-bold text-emerald-500 uppercase tracking-widest bg-emerald-50 px-3 py-1 rounded-full border border-emerald-100">Updated Today</span>
                         </div>
                     </div>
-                    <h3 className="text-2xl font-black text-slate-900 uppercase tracking-tight mb-6">Attendance Status</h3>
+                    <h3 className="text-2xl font-black text-slate-900 tracking-tight mb-6">Attendance Overview</h3>
+
                     <div className="grid grid-cols-2 gap-4 mb-8">
                         <div className="bg-slate-50 p-6 rounded-[32px] border border-slate-100">
                             <p className="text-slate-400 text-[9px] font-black uppercase tracking-[2px] mb-1">Present</p>
@@ -160,11 +164,12 @@ const SecretaryDashboard = () => {
                         </div>
                         {stats?.reports?.pending > 0 && (
                             <div className="animate-bounce">
-                                <span className="text-[10px] font-black text-amber-600 uppercase tracking-widest bg-amber-100 px-3 py-1 rounded-full border border-amber-200">Awaiting Verification</span>
+                                <span className="text-[10px] font-bold text-amber-600 uppercase tracking-widest bg-amber-100 px-3 py-1 rounded-full border border-amber-200">Pending Review</span>
                             </div>
                         )}
                     </div>
-                    <h3 className="text-2xl font-black text-slate-900 uppercase tracking-tight mb-6">Weekly Verification</h3>
+                    <h3 className="text-2xl font-black text-slate-900 tracking-tight mb-6">Weekly Report Review</h3>
+
                     <div className="bg-slate-50 p-8 rounded-[32px] border border-slate-100 mb-8">
                         <p className="text-slate-400 text-[10px] font-black uppercase tracking-[2px] mb-2">Reports in Queue</p>
                         <div className="flex items-center space-x-4">
@@ -243,9 +248,10 @@ const SecretaryDashboard = () => {
             <div className="bg-white rounded-[56px] border border-slate-100 shadow-2xl overflow-hidden relative group">
                 <div className="p-10 md:p-12 border-b border-slate-100 flex flex-col md:flex-row items-center justify-between gap-8">
                     <div>
-                        <h3 className="text-2xl font-black text-slate-900 uppercase tracking-tight">Students Requiring Action</h3>
-                        <p className="text-[10px] text-red-400 font-bold uppercase tracking-widest mt-1 italic">Identity audit flagging incomplete mandatory activities</p>
+                        <h3 className="text-2xl font-black text-slate-900 tracking-tight">Pending Submissions</h3>
+                        <p className="text-[10px] text-red-500 font-bold tracking-widest mt-1">List of students with pending submissions</p>
                     </div>
+
                     <div className="relative group/search">
                         <Search size={22} className="absolute left-6 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within/search:text-[#92400E] transition-colors" />
                         <input
@@ -322,17 +328,18 @@ const SecretaryDashboard = () => {
             {/* Global Legend / Status Info */}
             <div className="flex justify-center space-x-12 pt-8">
                 <div className="flex items-center space-x-3">
-                    <div className="w-3 h-3 rounded-full bg-amber-500 shadow-[0_0_10px_rgba(245,158,11,0.5)]"></div>
-                    <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Pending Verification</span>
+                    <div className="w-3 h-3 rounded-full bg-amber-500"></div>
+                    <span className="text-[10px] font-bold text-slate-400 tracking-widest">Pending Review</span>
                 </div>
                 <div className="flex items-center space-x-3">
-                    <div className="w-3 h-3 rounded-full bg-emerald-500 shadow-[0_0_10px_rgba(16,185,129,0.5)]"></div>
-                    <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Approved Compliance</span>
+                    <div className="w-3 h-3 rounded-full bg-emerald-500"></div>
+                    <span className="text-[10px] font-bold text-slate-400 tracking-widest">Approved Reports</span>
                 </div>
                 <div className="flex items-center space-x-3">
-                    <div className="w-3 h-3 rounded-full bg-red-500 shadow-[0_0_10px_rgba(239,68,68,0.5)]"></div>
-                    <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Rejected / Needs Review</span>
+                    <div className="w-3 h-3 rounded-full bg-red-500"></div>
+                    <span className="text-[10px] font-bold text-slate-400 tracking-widest">Needs Correction</span>
                 </div>
+
             </div>
         </div>
     );

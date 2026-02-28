@@ -60,14 +60,15 @@ const Login = () => {
                                     <h2 className="text-3xl font-black text-[#92400E] tracking-tight leading-none uppercase">Industry 5.0 Club Portal</h2>
                                 </div>
 
-                                <p className="text-sm font-bold text-slate-400 tracking-widest ml-[66px] uppercase">
-                                    Student Activity & Academic Tracking System
+                                <p className="text-sm font-bold text-slate-400 tracking-widest ml-[66px]">
+                                    Student Activity & Event Portal
                                 </p>
+
                             </div>
 
                             <div className="flex items-center space-x-4 mt-16 ml-[86px]">
                                 <div className="h-10 w-px bg-slate-200"></div>
-                                <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest leading-tight">Official Institutional<br />Security Protocol</p>
+                                <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest leading-tight">Official Student<br />Portal Access</p>
                             </div>
                         </motion.div>
                     </div>
@@ -103,7 +104,8 @@ const Login = () => {
 
                             <form onSubmit={handleSubmit} className="w-full space-y-8">
                                 <div className="space-y-3">
-                                    <label className="text-[10px] font-black text-slate-400 uppercase tracking-[3px] ml-1">Registered Email ID</label>
+                                    <label className="text-[10px] font-bold text-slate-400 uppercase tracking-[3px] ml-1">College Email ID</label>
+
                                     <div className="relative group">
                                         <Mail className="absolute left-6 top-1/2 -translate-y-1/2 text-slate-300 group-focus-within:text-[#92400E] transition-colors" size={20} />
                                         <input
