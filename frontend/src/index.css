@@ -112,3 +112,10 @@ body {
 ::-webkit-scrollbar-thumb:hover {
   background: #475569;
 }
+
+.club-logo {
+  width: 64px;
+  height: 64px;
+  object-fit: contain;
+  margin-right: 14px;
+}

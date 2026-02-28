@@ -48,14 +48,15 @@ const Login = () => {
                             <div className="h-[3px] w-32 bg-[#92400E]"></div>
                         </div>
 
-                        <div className="flex items-center space-x-[16px]">
+                        <div className="flex items-center mb-2">
                             <img
                                 src="/logo.png"
                                 alt="Industry 5.0 Logo"
-                                className="w-[50px] h-[50px] rounded-full object-cover shadow-2xl border-2 border-white bg-white"
+                                className="club-logo"
                             />
                             <h2 className="text-3xl font-black text-[#92400E] tracking-tight leading-none uppercase">Industry 5.0 Club Portal</h2>
                         </div>
+
 
                         <p className="text-sm font-bold text-slate-400 tracking-widest ml-[66px] uppercase">
                             Student Activity & Academic Tracking System
