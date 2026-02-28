@@ -27,13 +27,18 @@
       "destination": "/frontend/assets/$1"
     },
     {
-      "source": "/(.*\.(?:png|jpg|jpeg|gif|svg|ico|js|css|json|txt))",
-      "destination": "/frontend/$1"
+      "source": "/logo.png",
+      "destination": "/frontend/logo.png"
     },
     {
-      "source": "/((?!api|uploads).*)",
+      "source": "/vite.svg",
+      "destination": "/frontend/vite.svg"
+    },
+    {
+      "source": "/((?!api|uploads|assets|logo|vite).*)",
       "destination": "/frontend/index.html"
     }
+
 
   ]
 }
