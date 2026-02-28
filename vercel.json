@@ -23,17 +23,15 @@
       "destination": "/backend/server.js"
     },
     {
-      "source": "/assets/:path*",
-      "destination": "/frontend/assets/:path*"
+      "source": "/(.*)",
+      "destination": "/frontend/$1",
+      "check": true
     },
     {
-      "source": "/:file(logo\\.png|vite\\.svg|profile\\.jpg|favicon\\.ico)",
-      "destination": "/frontend/:file"
-    },
-    {
-      "source": "/((?!api|uploads|assets).*)",
+      "source": "/(.*)",
       "destination": "/frontend/index.html"
     }
+
 
 
 
