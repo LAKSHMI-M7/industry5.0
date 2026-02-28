@@ -77,6 +77,16 @@ app.get('/', (req, res) => {
     res.send('API is running...');
 });
 
+// Error handling middleware
+app.use((err, req, res, next) => {
+    console.error('SERVER ERROR:', err);
+    res.status(500).json({
+        message: 'Internal Server Error',
+        error: err.message
+    });
+});
+
+
 
 const PORT = process.env.PORT || 5000;
 
