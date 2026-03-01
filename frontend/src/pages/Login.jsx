@@ -27,14 +27,13 @@ const Login = () => {
     };
 
     return (
-        <div className="page-wrapper font-['Outfit']">
-            <div className="login-container bg-[#F8FAFC]">
+        <div className="page-wrapper bg-[#F8FAFC] font-['Outfit']">
+            <div className="login-container relative overflow-hidden">
                 {/* Background Radial Glows */}
                 <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-amber-50 rounded-full blur-[120px] opacity-60"></div>
                 <div className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] bg-blue-50 rounded-full blur-[120px] opacity-60"></div>
 
-                {/* Main Content Area */}
-                <div className="flex flex-col lg:flex-row w-full h-full relative z-10">
+                <div className="w-full h-full flex flex-col lg:flex-row relative z-10">
                     {/* Left Panel: 55% Branding */}
                     <div className="hidden lg:flex lg:w-[55%] relative overflow-hidden flex-col justify-center p-20">
                         <motion.div
@@ -60,22 +59,20 @@ const Login = () => {
                                     <h2 className="text-3xl font-black text-[#92400E] tracking-tight leading-none uppercase">Industry 5.0 Club Portal</h2>
                                 </div>
 
-                                <p className="text-sm font-bold text-slate-400 tracking-widest ml-[66px]">
-                                    Student Activity & Event Portal
+                                <p className="text-sm font-bold text-slate-400 tracking-widest ml-[66px] uppercase">
+                                    Student Activity & Academic Tracking System
                                 </p>
-
                             </div>
 
                             <div className="flex items-center space-x-4 mt-16 ml-[86px]">
                                 <div className="h-10 w-px bg-slate-200"></div>
-                                <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest leading-tight">Official Student<br />Portal Access</p>
+                                <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest leading-tight">Official Institutional<br />Security Protocol</p>
                             </div>
                         </motion.div>
                     </div>
 
                     {/* Right Panel: 45% Login Card */}
                     <div className="w-full lg:w-[45%] flex flex-col items-center justify-center p-6 lg:p-12">
-                        {/* Mobile Header (Hidden on Large screens) */}
                         <div className="lg:hidden w-full text-center mb-10">
                             <p className="text-[#92400E] font-black text-[12px] uppercase tracking-[4px] mb-2 font-serif">JEPPIAAR INSTITUTE OF TECHNOLOGY</p>
                             <h1 className="text-2xl font-black text-slate-900 tracking-tighter uppercase">Industry 5.0 Club Portal</h1>
@@ -104,8 +101,7 @@ const Login = () => {
 
                             <form onSubmit={handleSubmit} className="w-full space-y-8">
                                 <div className="space-y-3">
-                                    <label className="text-[10px] font-bold text-slate-400 uppercase tracking-[3px] ml-1">College Email ID</label>
-
+                                    <label className="text-[10px] font-black text-slate-400 uppercase tracking-[3px] ml-1">Registered Email ID</label>
                                     <div className="relative group">
                                         <Mail className="absolute left-6 top-1/2 -translate-y-1/2 text-slate-300 group-focus-within:text-[#92400E] transition-colors" size={20} />
                                         <input
@@ -153,14 +149,9 @@ const Login = () => {
                     </div>
                 </div>
             </div>
-
-            {/* Global Footer Managed in index.css */}
-            <div className="site-footer">
-                <Footer />
-            </div>
+            <Footer />
         </div>
     );
-
 };
 
 export default Login;

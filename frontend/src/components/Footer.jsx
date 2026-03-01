@@ -21,7 +21,7 @@ const Footer = () => {
     const linkedin = clubInfo?.linkedin || 'https://www.linkedin.com/in/industry-5-0-club-9b34263a8';
 
     return (
-        <footer className="w-full py-8 mt-auto text-center space-y-2 opacity-50 border-t border-slate-200/30">
+        <footer className="site-footer">
             <p className="text-[10px] font-black text-slate-500 uppercase tracking-[3px]">
                 Industry 5.0 Club – Jeppiaar Institute of Technology
             </p>
