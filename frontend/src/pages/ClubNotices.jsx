@@ -47,9 +47,9 @@ const ClubNotices = () => {
                 <header>
                     <div className="flex items-center space-x-3 mb-2">
                         <span className="h-[2px] w-10 bg-[#9A4A17]"></span>
-                        <span className="text-[10px] font-black text-[#9A4A17] uppercase tracking-[4px]">Industry 5.0 Club</span>
+                        <span className="text-[10px] font-black text-[#9A4A17]">Industry 5.0 Club</span>
                     </div>
-                    <h1 className="text-5xl font-black text-slate-900 tracking-tighter uppercase">Club Notices</h1>
+                    <h1 className="text-5xl font-black text-slate-900 tracking-tighter">Club Notices</h1>
                     <p className="text-slate-500 text-sm font-semibold mt-1">
                         {loading ? 'Loading...' : `${posters.length} notice${posters.length !== 1 ? 's' : ''} posted`}
                     </p>
@@ -71,7 +71,7 @@ const ClubNotices = () => {
                 ) : posters.length === 0 ? (
                     <div className="text-center py-32 bg-white rounded-3xl">
                         <Bell size={48} className="mx-auto text-slate-200 mb-4" />
-                        <h3 className="text-xl font-black text-slate-400 uppercase tracking-wider">No Notices Yet</h3>
+                        <h3 className="text-xl font-black text-slate-400">No notices yet</h3>
                         <p className="text-slate-400 text-sm mt-2">Club notices and event posters will appear here.</p>
                     </div>
                 ) : (
@@ -98,7 +98,7 @@ const ClubNotices = () => {
                                         </div>
                                     </div>
                                     {idx === 0 && (
-                                        <div className="absolute top-3 left-3 bg-[#9A4A17] text-white text-[10px] font-black px-3 py-1 rounded-full uppercase tracking-wider">
+                                        <div className="absolute top-3 left-3 bg-[#9A4A17] text-white text-[10px] font-black px-3 py-1 rounded-full">
                                             Latest
                                         </div>
                                     )}

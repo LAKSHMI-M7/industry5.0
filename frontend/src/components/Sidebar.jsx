@@ -52,7 +52,7 @@ const Sidebar = () => {
                 </div>
                 <div className="overflow-hidden">
                     <p className="text-xs font-bold text-slate-900 truncate leading-none mb-1">{user?.name}</p>
-                    <p className="text-[9px] text-slate-500 font-black uppercase tracking-wider leading-none">{user?.role}</p>
+                    <p className="text-[9px] text-slate-500 font-black leading-none">{user?.role}</p>
                 </div>
             </div>
         );
@@ -114,16 +114,14 @@ const Sidebar = () => {
                         alt="Logo"
                         className="w-10 h-10 rounded-full object-cover shadow-md border border-white bg-white flex-shrink-0"
                     />
-                    <h1 className="text-lg font-black text-slate-900 tracking-tight leading-none uppercase">Club Portal</h1>
+                    <h1 className="text-lg font-black text-slate-900 leading-none">I5C Hub</h1>
                 </div>
-
                 <div className="h-0.5 w-8 bg-[#92400E]/20 rounded-full"></div>
             </div>
 
             {/* Navigation Section */}
             <div className="flex-1 px-4 mt-6 erp-nav-section select-none">
-                <p className="px-3 text-[9px] font-bold text-slate-400 uppercase tracking-[3px] mb-4 opacity-50 font-serif">Main Menu</p>
-
+                <p className="px-3 text-[9px] font-black text-slate-400 mb-4 opacity-50">University Matrix</p>
                 <nav className="space-y-1">
                     {activeRoutes.map((route) => (
                         <NavLink
@@ -131,8 +129,7 @@ const Sidebar = () => {
                             to={route.path}
                             className={({ isActive }) =>
                                 `flex items-center space-x-3 px-4 py-2.5 rounded-xl transition-all duration-300 group erp-nav-item ${isActive
-                                    ? 'bg-[#9A4A17] text-white shadow-lg shadow-amber-900/20'
-
+                                    ? 'bg-[#9A4A17] text-white shadow-lg shadow-amber-900/20 font-bold'
                                     : 'text-slate-600 hover:bg-white hover:text-slate-900'
                                 }`
                             }
@@ -140,7 +137,7 @@ const Sidebar = () => {
                             <div className="shrink-0 transition-transform group-hover:scale-110 duration-300">
                                 {route.icon}
                             </div>
-                            <span className="text-xs uppercase tracking-wider font-bold">{route.name}</span>
+                            <span className="text-xs font-bold">{route.name}</span>
                         </NavLink>
                     ))}
                 </nav>
@@ -154,7 +151,7 @@ const Sidebar = () => {
                     className="w-full flex items-center space-x-3 px-4 py-2 erp-nav-item rounded-xl text-slate-500 hover:bg-red-50 hover:text-red-600 transition-all duration-300 group"
                 >
                     <LogOut size={18} className="group-hover:translate-x-1 transition-transform" />
-                    <span className="text-xs font-black uppercase tracking-widest">Sign Out</span>
+                    <span className="text-xs font-black">Sign Out</span>
                 </button>
             </div>
         </aside>

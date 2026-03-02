@@ -39,9 +39,8 @@ const AdminDashboard = () => {
                     <img src="/logo.png" alt="Logo" className="w-12 h-12 rounded-full animate-pulse" />
                 </div>
             </div>
-            <p className="text-[10px] font-bold text-slate-400 tracking-[4px] animate-pulse">Loading Dashboard...</p>
+            <p className="text-[10px] font-black text-slate-400 animate-pulse">Initializing portal...</p>
         </div>
-
     );
 
     const highlightCards = [
@@ -75,18 +74,17 @@ const AdminDashboard = () => {
             <div className="max-w-7xl mx-auto space-y-10 pb-24">
                 <header className="flex flex-col md:flex-row md:items-end justify-between gap-6 px-1">
                     <div>
-                        <h1 className="text-4xl font-black text-slate-900 tracking-tight mb-2">Administrator Dashboard</h1>
-                        <p className="text-slate-500 font-bold tracking-widest text-xs opacity-70">
+                        <h1 className="text-4xl font-black text-slate-900 tracking-tight mb-2">Admin Control Panel</h1>
+                        <p className="text-slate-500 font-bold text-xs opacity-70">
                             Manage students, attendance, and activity reports
                         </p>
                     </div>
                     <div className="flex items-center space-x-4">
                         <div className="bg-white/80 backdrop-blur-md px-6 py-3 rounded-2xl border border-white shadow-sm flex items-center space-x-3">
                             <div className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse"></div>
-                            <span className="text-slate-900 font-black tracking-[2px] text-[9px]">System Active</span>
+                            <span className="text-slate-900 font-black text-[9px]">Portal Active</span>
                         </div>
                     </div>
-
                 </header>
 
                 {/* Top Section - Large Highlight Cards */}
@@ -99,21 +97,21 @@ const AdminDashboard = () => {
                             transition={{ delay: i * 0.1 }}
                             onClick={() => navigate(card.path)}
                             className={`relative overflow-hidden p-10 rounded-[32px] cursor-pointer group transition-all duration-500 hover:shadow-2xl hover:-translate-y-1 ${card.isPrimary
-                                    ? 'bg-gradient-to-br from-[#9A4A17] to-[#7A3811] text-white'
-                                    : 'bg-white border border-[#E5E7EB] text-slate-900 shadow-sm'
+                                ? 'bg-gradient-to-br from-[#9A4A17] to-[#7A3811] text-white'
+                                : 'bg-white border border-[#E5E7EB] text-slate-900 shadow-sm'
                                 }`}
                         >
                             <div className={`mb-6 opacity-80 ${card.isPrimary ? 'text-white/40' : 'text-[#9A4A17]'}`}>
                                 {card.icon}
                             </div>
                             <div className="relative z-10">
-                                <p className={`text-[11px] font-black uppercase tracking-[3px] mb-2 ${card.isPrimary ? 'text-white/60' : 'text-slate-400'}`}>
+                                <p className={`text-[11px] font-black mb-2 ${card.isPrimary ? 'text-white/60' : 'text-slate-400'}`}>
                                     {card.label}
                                 </p>
                                 <h2 className="text-6xl font-black tracking-tighter mb-2 leading-none">
                                     {card.value}
                                 </h2>
-                                <p className={`text-sm font-bold uppercase tracking-widest ${card.isPrimary ? 'text-white/40' : 'text-slate-400'}`}>
+                                <p className={`text-sm font-bold ${card.isPrimary ? 'text-white/40' : 'text-slate-400'}`}>
                                     {card.subtitle}
                                 </p>
                             </div>
@@ -139,7 +137,7 @@ const AdminDashboard = () => {
                                 {card.icon}
                             </div>
                             <div className="flex-grow">
-                                <p className="text-slate-400 text-[9px] font-black uppercase tracking-[2px] mb-2 leading-none">
+                                <p className="text-slate-400 text-[9px] font-black mb-2 leading-none">
                                     {card.label}
                                 </p>
                                 <h3 className="text-4xl font-black text-slate-900 tracking-tighter leading-none">
@@ -147,7 +145,7 @@ const AdminDashboard = () => {
                                 </h3>
                             </div>
                             <div className="mt-6 pt-4 border-t border-slate-50 flex items-center justify-between opacity-0 group-hover:opacity-100 transition-opacity">
-                                <span className="text-[8px] font-black text-[#9A4A17] uppercase tracking-widest">View Details</span>
+                                <span className="text-[8px] font-black text-[#9A4A17]">View Details</span>
                                 <ChevronRight size={12} className="text-[#9A4A17]" />
                             </div>
                         </motion.div>
@@ -159,32 +157,30 @@ const AdminDashboard = () => {
                     <div className="lg:col-span-2 bg-white p-10 rounded-[28px] border border-[#E5E7EB] shadow-sm">
                         <div className="flex items-center justify-between mb-8">
                             <div>
-                                <h3 className="text-xl font-black text-slate-900">Recent Dashboard Activity</h3>
-                                <p className="text-[10px] text-slate-400 font-bold tracking-widest">Recent administrative updates</p>
+                                <h3 className="text-xl font-black text-slate-900 tracking-tight">System Activity Log</h3>
+                                <p className="text-[10px] text-slate-400 font-bold">Academic portal operations</p>
                             </div>
                             <div className="px-4 py-2 bg-slate-50 rounded-full border border-slate-100">
-                                <span className="text-[9px] font-bold text-slate-400 tracking-widest">Live Updates</span>
+                                <span className="text-[9px] font-black text-slate-400">Live Feed</span>
                             </div>
-
                         </div>
                         <div className="space-y-4">
                             {[
-                                { user: 'Secretary Panel', action: 'Daily Update Reviewed', time: '12s ago' },
-                                { user: 'Admin Account', action: 'User Permissions Updated', time: '5m ago' },
-                                { user: 'System Update', action: 'Attendance Records Verified', time: '18m ago' }
+                                { user: 'Secretary Panel', action: 'Daily Update Verified', time: '12s ago' },
+                                { user: 'Admin Root', action: 'User Permissions Modified', time: '5m ago' },
+                                { user: 'System Sync', action: 'Attendance Records Normalized', time: '18m ago' }
                             ].map((log, i) => (
                                 <div key={i} className="flex items-center justify-between p-4 bg-[#F8FAFC] rounded-2xl border border-slate-200/50">
                                     <div className="flex items-center space-x-4">
                                         <div className="w-8 h-8 rounded-full bg-white border border-slate-200 flex items-center justify-center">
                                             <Activity size={14} className="text-[#9A4A17]" />
                                         </div>
-
                                         <div>
-                                            <p className="text-[11px] font-black text-slate-900 uppercase">{log.user}</p>
+                                            <p className="text-[11px] font-black text-slate-900">{log.user}</p>
                                             <p className="text-[10px] text-slate-500 font-medium">{log.action}</p>
                                         </div>
                                     </div>
-                                    <span className="text-[9px] font-bold text-slate-400 uppercase tracking-widest">{log.time}</span>
+                                    <span className="text-[9px] font-bold text-slate-400">{log.time}</span>
                                 </div>
                             ))}
                         </div>
@@ -195,15 +191,14 @@ const AdminDashboard = () => {
                             <div className="p-4 bg-amber-50 rounded-2xl border border-amber-100 w-fit mb-6 text-[#9A4A17]">
                                 <Shield size={24} />
                             </div>
-                            <h3 className="text-xl font-black text-slate-900 tracking-tight leading-tight mb-4 text-left">Data Privacy & Guidelines</h3>
+                            <h3 className="text-xl font-black text-slate-900 tracking-tight leading-tight mb-4 text-left">Academic Data Compliance</h3>
                             <p className="text-slate-500 text-xs font-medium leading-relaxed">
-                                This dashboard is restricted to authorized administrative personnel. All activities are recorded for security purposes.
+                                This control panel is restricted to authorized administrative personnel. All actions are logged under institutional security protocols.
                             </p>
                         </div>
                         <div className="mt-8 pt-6 border-t border-slate-100">
-                            <p className="text-[9px] font-black text-[#9A4A17] tracking-[2px]">Authorized Access Only</p>
+                            <p className="text-[9px] font-black text-[#9A4A17]">Authorized Access Only</p>
                         </div>
-
                     </div>
                 </div>
             </div>

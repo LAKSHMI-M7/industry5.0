@@ -44,8 +44,8 @@ const Login = () => {
                     >
                         <div className="space-y-4">
                             <div className="flex flex-col mb-4">
-                                <p className="text-[44px] font-serif font-black text-slate-900 uppercase tracking-[5px] leading-none mb-2">
-                                    JEPPIAAR INSTITUTE OF TECHNOLOGY
+                                <p className="text-[44px] font-serif font-black text-slate-900 leading-none mb-2">
+                                    Jeppiaar Institute of Technology
                                 </p>
                                 <div className="h-[3px] w-32 bg-[#92400E]"></div>
                             </div>
@@ -56,17 +56,17 @@ const Login = () => {
                                     alt="Industry 5.0 Logo"
                                     className="club-logo"
                                 />
-                                <h2 className="text-3xl font-black text-[#92400E] tracking-tight leading-none uppercase">Industry 5.0 Club Portal</h2>
+                                <h2 className="text-3xl font-black text-[#92400E] tracking-tight leading-none">Industry 5.0 Club Portal</h2>
                             </div>
 
-                            <p className="text-sm font-bold text-slate-400 tracking-widest ml-[66px] uppercase">
+                            <p className="text-sm font-bold text-slate-400 ml-[66px]">
                                 Student Activity & Academic Tracking System
                             </p>
                         </div>
 
                         <div className="flex items-center space-x-4 mt-16 ml-[86px]">
                             <div className="h-10 w-px bg-slate-200"></div>
-                            <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest leading-tight">Official Institutional<br />Security Protocol</p>
+                            <p className="text-[10px] font-black text-slate-400 leading-tight">Official Institutional<br />Security Protocol</p>
                         </div>
                     </motion.div>
                 </div>
@@ -74,8 +74,8 @@ const Login = () => {
                 {/* Right Panel: 45% Login Card */}
                 <div className="w-full lg:w-[45%] flex flex-col items-center justify-center p-6 lg:p-12 z-10 text-center">
                     <div className="lg:hidden w-full text-center mb-10">
-                        <p className="text-[#92400E] font-black text-[12px] uppercase tracking-[4px] mb-2 font-serif">JEPPIAAR INSTITUTE OF TECHNOLOGY</p>
-                        <h1 className="text-2xl font-black text-slate-900 tracking-tighter uppercase">Industry 5.0 Club Portal</h1>
+                        <p className="text-[#92400E] font-black text-[12px] mb-2 font-serif">Jeppiaar Institute of Technology</p>
+                        <h1 className="text-2xl font-black text-slate-900 tracking-tighter">Industry 5.0 Club Portal</h1>
                     </div>
 
                     <motion.div
@@ -95,13 +95,13 @@ const Login = () => {
                                 className="w-full mb-8 p-5 bg-red-50 border border-red-100 rounded-[24px] flex items-center space-x-4 text-red-600"
                             >
                                 <ShieldAlert size={20} className="shrink-0" />
-                                <span className="text-[11px] font-black uppercase tracking-widest leading-none">{error}</span>
+                                <span className="text-[11px] font-black leading-none">{error}</span>
                             </motion.div>
                         )}
 
                         <form onSubmit={handleSubmit} className="w-full space-y-8">
                             <div className="space-y-3">
-                                <label className="text-[10px] font-black text-slate-400 uppercase tracking-[3px] ml-1">Registered Email ID</label>
+                                <label className="text-[10px] font-black text-slate-400 ml-1">Registered email ID</label>
                                 <div className="relative group">
                                     <Mail className="absolute left-6 top-1/2 -translate-y-1/2 text-slate-300 group-focus-within:text-[#92400E] transition-colors" size={20} />
                                     <input
@@ -117,8 +117,8 @@ const Login = () => {
 
                             <div className="space-y-3">
                                 <div className="flex justify-between items-center ml-1">
-                                    <label className="text-[10px] font-black text-slate-400 uppercase tracking-[3px]">Password</label>
-                                    <Link to="#" className="text-[10px] font-black text-[#92400E] uppercase tracking-widest hover:underline opacity-60">Forgot Password?</Link>
+                                    <label className="text-[10px] font-black text-slate-400">Password</label>
+                                    <Link to="#" className="text-[10px] font-black text-[#92400E] hover:underline opacity-60">Forgot password?</Link>
                                 </div>
                                 <div className="relative group">
                                     <Lock className="absolute left-6 top-1/2 -translate-y-1/2 text-slate-300 group-focus-within:text-[#92400E] transition-colors" size={20} />
@@ -140,7 +140,7 @@ const Login = () => {
                                     type="submit"
                                     className="w-full bg-slate-900 hover:bg-black text-white font-black py-6 rounded-[32px] shadow-2xl shadow-slate-900/20 transition-all flex items-center justify-center space-x-4 group"
                                 >
-                                    <span className="text-sm tracking-[2px]">Sign In</span>
+                                    <span className="text-sm">Sign In</span>
                                     <LogIn size={20} className="group-hover:translate-x-1 transition-transform" />
                                 </motion.button>
                             </div>

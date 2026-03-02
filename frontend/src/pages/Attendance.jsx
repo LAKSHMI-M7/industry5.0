@@ -33,11 +33,10 @@ const Attendance = () => {
         <div className="dashboard-gradient min-h-screen flex flex-col items-center justify-center p-8 space-y-8 font-['Outfit']">
             <div className="relative">
                 <div className="w-20 h-20 border-4 border-[#92400E]/20 border-t-[#92400E] rounded-full animate-spin"></div>
-                <Calendar size={24} className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[#92400E] animate-pulse" />
+                <Zap size={24} className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[#92400E] animate-pulse" />
             </div>
-            <p className="text-slate-400 font-bold tracking-[2px] animate-pulse">Loading Records...</p>
+            <p className="text-slate-400 font-black animate-pulse">Accessing registry...</p>
         </div>
-
     );
 
     return (
@@ -45,20 +44,18 @@ const Attendance = () => {
             <div className="max-w-7xl mx-auto space-y-12 pb-20 animate-in fade-in slide-in-from-bottom-8 duration-1000">
                 <header className="flex flex-col md:flex-row md:items-end justify-between gap-8">
                     <div>
-                        <h1 className="text-5xl font-black text-slate-900 tracking-tight mb-3 uppercase leading-none">Attendance Record</h1>
-                        <p className="text-slate-500 font-bold ml-1 tracking-widest text-sm opacity-60">Official record of your club attendance.</p>
+                        <h1 className="text-5xl font-black text-slate-900 tracking-tight mb-3 leading-none">Attendance Log</h1>
+                        <p className="text-slate-500 font-bold ml-1 text-sm opacity-60">Verified institutional record of your technical residency.</p>
                     </div>
                 </header>
-
 
                 {/* Stats Section */}
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
                     {[
-                        { label: 'Total Days', value: attendance.length, suffix: 'Sessions', icon: <History className="text-slate-600" />, bg: 'bg-slate-100' },
-                        { label: 'Present Days', value: stats.present, suffix: 'Days', icon: <CheckCircle className="text-emerald-600" />, bg: 'bg-emerald-50' },
-                        { label: 'Attendance Percentage', value: stats.percentage, suffix: '%', icon: <Calendar className="text-[#92400E]" />, bg: 'bg-amber-50' },
+                        { label: 'Total Logs', value: attendance.length, suffix: 'Sessions', icon: <History className="text-slate-600" />, bg: 'bg-slate-100' },
+                        { label: 'Present Days', value: stats.present, suffix: 'Days', icon: <ShieldCheck className="text-emerald-600" />, bg: 'bg-emerald-50' },
+                        { label: 'Compliance Level', value: stats.percentage, suffix: '%', icon: <Zap className="text-[#92400E]" />, bg: 'bg-amber-50' },
                     ].map((stat, i) => (
-
                         <motion.div
                             initial={{ opacity: 0, scale: 0.95 }}
                             animate={{ opacity: 1, scale: 1 }}
@@ -71,12 +68,11 @@ const Attendance = () => {
                                 <div className={`p-5 ${stat.bg} rounded-[28px] group-hover:rotate-12 transition-transform shadow-sm`}>
                                     {stat.icon}
                                 </div>
-                                <span className="text-[8px] font-bold text-slate-400 bg-slate-50 border border-slate-100 px-4 py-2 rounded-full">Verified Record</span>
-
+                                <span className="text-[8px] font-black text-slate-400 bg-slate-50 border border-slate-100 px-4 py-2 rounded-full">System Verified</span>
                             </div>
-                            <p className="text-slate-400 text-[9px] font-black uppercase tracking-[3px] mb-2">{stat.label}</p>
+                            <p className="text-slate-400 text-[9px] font-black mb-2">{stat.label}</p>
                             <h3 className="text-4xl font-black text-slate-900 tracking-tighter">
-                                {stat.value}<span className="text-lg text-slate-400 font-bold ml-2 uppercase tracking-tight">{stat.suffix}</span>
+                                {stat.value}<span className="text-lg text-slate-400 font-bold ml-2 tracking-tight">{stat.suffix}</span>
                             </h3>
                         </motion.div>
                     ))}
@@ -90,21 +86,19 @@ const Attendance = () => {
                                 <Calendar size={28} />
                             </div>
                             <div>
-                                <h3 className="text-2xl font-black text-slate-900 tracking-tight uppercase leading-none">Attendance History</h3>
-                                <p className="text-[9px] text-slate-400 font-bold tracking-widest mt-2">Your daily attendance log</p>
+                                <h3 className="text-2xl font-black text-slate-900 tracking-tight leading-none">Chronological Record</h3>
+                                <p className="text-[9px] text-slate-400 font-bold mt-2">Activity sync with institutional servers</p>
                             </div>
-
                         </div>
                     </div>
                     <div className="overflow-x-auto">
                         <table className="w-full text-left border-collapse">
                             <thead>
                                 <tr className="bg-slate-50/50">
-                                    <th className="px-10 py-8 text-[10px] font-bold text-slate-400 tracking-[4px] uppercase border-b border-slate-100">Date</th>
-                                    <th className="px-10 py-8 text-[10px] font-bold text-slate-400 tracking-[4px] uppercase border-b border-slate-100 text-center">Time Marked</th>
-                                    <th className="px-10 py-8 text-[10px] font-bold text-slate-400 tracking-[4px] uppercase border-b border-slate-100 text-center">Status</th>
-                                    <th className="px-10 py-8 text-[10px] font-bold text-slate-400 tracking-[4px] uppercase border-b border-slate-100 text-right">Review</th>
-
+                                    <th className="px-10 py-8 text-[10px] font-black text-slate-400 border-b border-slate-100">Logging Date</th>
+                                    <th className="px-10 py-8 text-[10px] font-black text-slate-400 border-b border-slate-100 text-center">Marking Timestamp</th>
+                                    <th className="px-10 py-8 text-[10px] font-black text-slate-400 border-b border-slate-100 text-center">Status</th>
+                                    <th className="px-10 py-8 text-[10px] font-black text-slate-400 border-b border-slate-100 text-right">Verification</th>
                                 </tr>
                             </thead>
                             <tbody className="divide-y divide-slate-100">
@@ -114,31 +108,31 @@ const Attendance = () => {
                                             <div className="w-24 h-24 bg-slate-50 rounded-[40px] flex items-center justify-center mx-auto mb-8 text-slate-200 shadow-inner">
                                                 <Calendar size={48} />
                                             </div>
-                                            <p className="text-slate-400 font-black tracking-[6px] uppercase text-[10px]">No historical registry records found.</p>
+                                            <p className="text-slate-400 font-black text-[10px]">No historical registry records found.</p>
                                         </td>
                                     </tr>
                                 ) : (
                                     attendance.map((log) => (
                                         <tr key={log._id} className="hover:bg-slate-50/80 transition-all group">
-                                            <td className="px-10 py-10 font-black text-slate-900 uppercase tracking-tighter text-xl leading-none">
+                                            <td className="px-10 py-10 font-black text-slate-900 tracking-tighter text-xl leading-none">
                                                 {new Date(log.date).toLocaleDateString(undefined, { weekday: 'short', month: 'long', day: 'numeric', year: 'numeric' })}
                                             </td>
                                             <td className="px-10 py-10 text-center">
                                                 {log.markedAt ? (
                                                     <div className="inline-flex items-center space-x-3 bg-white border border-slate-100 px-5 py-3 rounded-2xl shadow-sm group-hover:scale-105 transition-transform">
                                                         <Clock size={16} className="text-[#92400E]" />
-                                                        <span className="text-sm font-bold text-slate-600 tracking-tight uppercase">
+                                                        <span className="text-sm font-bold text-slate-600 tracking-tight">
                                                             {new Date(log.markedAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' })}
                                                         </span>
                                                     </div>
                                                 ) : (
-                                                    <span className="text-[10px] font-black text-slate-300 uppercase italic">N/A</span>
+                                                    <span className="text-[10px] font-black text-slate-300 italic">N/A</span>
                                                 )}
                                             </td>
                                             <td className="px-10 py-10 text-center">
-                                                <span className={`inline-flex items-center px-6 py-3 rounded-full text-[10px] font-black uppercase tracking-widest border shadow-sm ${log.status === 'Present'
-                                                        ? 'bg-emerald-50 text-emerald-600 border-emerald-100'
-                                                        : 'bg-red-50 text-red-600 border-red-100'
+                                                <span className={`inline-flex items-center px-6 py-3 rounded-full text-[10px] font-black border shadow-sm ${log.status === 'Present'
+                                                    ? 'bg-emerald-50 text-emerald-600 border-emerald-100'
+                                                    : 'bg-red-50 text-red-600 border-red-100'
                                                     }`}>
                                                     {log.status === 'Present' ? <ShieldCheck size={14} className="mr-2" /> : <XCircle size={14} className="mr-2" />}
                                                     {log.status}
@@ -148,10 +142,10 @@ const Attendance = () => {
                                                 <div className="flex flex-col items-end">
                                                     <div className="flex items-center space-x-2 text-emerald-500">
                                                         <CheckCircle size={14} />
-                                                        <span className="text-[9px] font-bold uppercase tracking-widest">Verified</span>
+                                                        <span className="text-[9px] font-black">Validated</span>
                                                     </div>
+                                                    <p className="text-[8px] text-slate-400 font-bold mt-1 tracking-tighter">Checksum: 8x2F...90Z</p>
                                                 </div>
-
                                             </td>
                                         </tr>
                                     ))

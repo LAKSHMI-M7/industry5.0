@@ -111,7 +111,7 @@ const Profile = () => {
                     <div className="w-24 h-24 border-4 border-[#92400E]/20 border-t-[#92400E] rounded-full animate-spin"></div>
                     <img src="/logo.png" alt="Logo" className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-12 h-12 rounded-full animate-pulse" />
                 </div>
-                <p className="text-slate-400 font-black uppercase tracking-[8px] animate-pulse">Loading Profile...</p>
+                <p className="text-slate-400 font-black animate-pulse">Loading profile...</p>
             </div>
         );
     }
@@ -123,10 +123,10 @@ const Profile = () => {
                     <div className="space-y-2">
                         <div className="flex items-center space-x-3 mb-2">
                             <span className="h-[2px] w-12 bg-[#92400E]"></span>
-                            <span className="text-[10px] font-black text-[#92400E] uppercase tracking-[4px]">Student Registry</span>
+                            <span className="text-[10px] font-black text-[#92400E]">Student registry</span>
                         </div>
-                        <h1 className="text-6xl font-black text-slate-900 tracking-tighter uppercase leading-none">Student Profile</h1>
-                        <p className="text-slate-500 font-bold ml-1 uppercase tracking-widest text-sm italic">Please keep your profile information up to date.</p>
+                        <h1 className="text-6xl font-black text-slate-900 tracking-tighter leading-none">Student Profile</h1>
+                        <p className="text-slate-500 font-bold ml-1 text-sm italic">Please keep your profile information up to date.</p>
                     </div>
                     <AnimatePresence>
                         {message && (
@@ -134,7 +134,7 @@ const Profile = () => {
                                 initial={{ opacity: 0, scale: 0.9, y: 20 }}
                                 animate={{ opacity: 1, scale: 1, y: 0 }}
                                 exit={{ opacity: 0, scale: 0.9, y: 20 }}
-                                className={`px-8 py-5 rounded-[28px] font-black text-sm uppercase tracking-widest border shadow-2xl flex items-center space-x-3 ${message.type === 'error' ? 'bg-red-50 border-red-100 text-red-600' : 'bg-emerald-50 border-emerald-100 text-emerald-600'}`}
+                                className={`px-8 py-5 rounded-[28px] font-black text-sm border shadow-2xl flex items-center space-x-3 ${message.type === 'error' ? 'bg-red-50 border-red-100 text-red-600' : 'bg-emerald-50 border-emerald-100 text-emerald-600'}`}
                             >
                                 <div className={`w-2 h-2 rounded-full animate-ping ${message.type === 'error' ? 'bg-red-500' : 'bg-emerald-500'}`}></div>
                                 <span>{message.text}</span>
@@ -181,27 +181,27 @@ const Profile = () => {
                                         )}
                                     </button>
                                 </div>
-                                <h4 className="text-4xl font-black text-slate-900 mb-2 tracking-tighter uppercase">{profile?.user?.name || 'Loading data...'}</h4>
+                                <h4 className="text-4xl font-black text-slate-900 mb-2 tracking-tighter">{profile?.user?.name || 'Loading data...'}</h4>
                                 <div className="flex items-center justify-center space-x-3 mb-10">
                                     <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
-                                    <p className="text-[#92400E] text-[10px] font-black uppercase tracking-[5px]">{formData.domain || 'Student'}</p>
+                                    <p className="text-[#92400E] text-[10px] font-black">{formData.domain || 'Student'}</p>
                                 </div>
 
                                 <div className="bg-slate-900/5 backdrop-blur-xl rounded-[40px] p-10 border border-white/50 space-y-6">
                                     <div className="flex justify-between items-end border-b border-slate-200/50 pb-4">
                                         <div className="text-left">
-                                            <p className="text-[8px] font-black uppercase tracking-widest text-slate-400 mb-1">Register Number</p>
-                                            <p className="text-lg font-black text-slate-900 tracking-tighter">{formData.registerNumber || 'UNASSIGNED'}</p>
+                                            <p className="text-[8px] font-black text-slate-400 mb-1">Register number</p>
+                                            <p className="text-lg font-black text-slate-900 tracking-tighter">{formData.registerNumber || 'Unassigned'}</p>
                                         </div>
                                         <Hash size={16} className="text-slate-300 mb-1" />
                                     </div>
                                     <div className="grid grid-cols-2 gap-6">
                                         <div className="text-left">
-                                            <p className="text-[8px] font-black uppercase tracking-widest text-slate-400 mb-1">CGPA</p>
+                                            <p className="text-[8px] font-black text-slate-400 mb-1">CGPA</p>
                                             <p className="text-3xl font-black text-slate-900 tracking-tighter">{formData.cgpa || '0.00'}</p>
                                         </div>
                                         <div className="text-left">
-                                            <p className="text-[8px] font-black uppercase tracking-widest text-slate-400 mb-1">Arrears</p>
+                                            <p className="text-[8px] font-black text-slate-400 mb-1">Arrears</p>
                                             <p className={`text-3xl font-black tracking-tighter ${parseInt(formData.arrears) > 0 ? 'text-red-500' : 'text-emerald-500'}`}>{formData.arrears || '0'}</p>
                                         </div>
                                     </div>
@@ -211,7 +211,7 @@ const Profile = () => {
 
                         <div className="bg-slate-900 p-12 rounded-[56px] text-white shadow-2xl relative overflow-hidden group">
                             <div className="absolute top-0 right-0 w-48 h-48 bg-white/5 rounded-full blur-3xl -mr-24 -mt-24 group-hover:scale-150 transition-transform duration-1000"></div>
-                            <h4 className="text-white font-black flex items-center space-x-5 mb-10 text-2xl tracking-tight uppercase">
+                            <h4 className="text-white font-black flex items-center space-x-5 mb-10 text-2xl tracking-tight">
                                 <GraduationCap size={28} className="text-[#92400E]" />
                                 <span>Academic Details</span>
                             </h4>
@@ -220,7 +220,7 @@ const Profile = () => {
                             </p>
                             <div className="flex items-center space-x-4 bg-white/5 p-6 rounded-[32px] border border-white/10">
                                 <Award className="text-amber-500" size={24} />
-                                <span className="text-[10px] font-black uppercase tracking-[4px]">Active Student</span>
+                                <span className="text-[10px] font-black">Active student</span>
                             </div>
                         </div>
                     </motion.div>
@@ -242,14 +242,14 @@ const Profile = () => {
                                             <Layers size={24} />
                                         </div>
                                         <div>
-                                            <h3 className="text-3xl font-black text-slate-900 tracking-tighter uppercase leading-none">Personal Details</h3>
-                                            <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mt-1">Enter your basic information</p>
+                                            <h3 className="text-3xl font-black text-slate-900 tracking-tighter leading-none">Personal Details</h3>
+                                            <p className="text-[10px] font-black text-slate-400 mt-1">Enter your basic information</p>
                                         </div>
                                     </div>
 
                                     <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
                                         <div className="space-y-4">
-                                            <label className="text-[10px] font-black text-slate-400 uppercase tracking-[4px] ml-4">Register Number</label>
+                                            <label className="text-[10px] font-black text-slate-400 ml-4">Register number</label>
                                             <div className="relative group">
                                                 <Hash className="absolute left-6 top-1/2 -translate-y-1/2 text-slate-300 group-focus-within:text-[#92400E] transition-colors" size={20} />
                                                 <input
@@ -263,7 +263,7 @@ const Profile = () => {
                                             </div>
                                         </div>
                                         <div className="space-y-4">
-                                            <label className="text-[10px] font-black text-slate-400 uppercase tracking-[4px] ml-4">Department</label>
+                                            <label className="text-[10px] font-black text-slate-400 ml-4">Department</label>
                                             <div className="relative group">
                                                 <BookOpen className="absolute left-6 top-1/2 -translate-y-1/2 text-slate-300 group-focus-within:text-[#92400E] transition-colors" size={20} />
                                                 <input
@@ -277,7 +277,7 @@ const Profile = () => {
                                             </div>
                                         </div>
                                         <div className="space-y-4">
-                                            <label className="text-[10px] font-black text-slate-400 uppercase tracking-[4px] ml-4">Academic Year</label>
+                                            <label className="text-[10px] font-black text-slate-400 ml-4">Academic year</label>
                                             <div className="grid grid-cols-3 gap-6">
                                                 <select
                                                     name="year"
@@ -309,7 +309,7 @@ const Profile = () => {
                                             </div>
                                         </div>
                                         <div className="space-y-4">
-                                            <label className="text-[10px] font-black text-slate-400 uppercase tracking-[4px] ml-4">Contact Information</label>
+                                            <label className="text-[10px] font-black text-slate-400 ml-4">Contact information</label>
                                             <div className="relative group">
                                                 <Phone className="absolute left-6 top-1/2 -translate-y-1/2 text-slate-300 group-focus-within:text-[#92400E] transition-colors" size={20} />
                                                 <input
@@ -331,14 +331,14 @@ const Profile = () => {
                                             <Cpu size={24} />
                                         </div>
                                         <div>
-                                            <h3 className="text-3xl font-black text-slate-900 tracking-tighter uppercase leading-none">Skills & Domain</h3>
-                                            <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mt-1">Your focus areas and performance</p>
+                                            <h3 className="text-3xl font-black text-slate-900 tracking-tighter leading-none">Skills & Domain</h3>
+                                            <p className="text-[10px] font-black text-slate-400 mt-1">Your focus areas and performance</p>
                                         </div>
                                     </div>
 
                                     <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
                                         <div className="space-y-4">
-                                            <label className="text-[10px] font-black text-slate-400 uppercase tracking-[4px] ml-4">Your Domain</label>
+                                            <label className="text-[10px] font-black text-slate-400 ml-4">Your domain</label>
                                             <div className="relative group">
                                                 <Target className="absolute left-6 top-1/2 -translate-y-1/2 text-slate-300 group-focus-within:text-[#92400E] transition-colors" size={20} />
                                                 <input
@@ -352,7 +352,7 @@ const Profile = () => {
                                             </div>
                                         </div>
                                         <div className="space-y-4">
-                                            <label className="text-[10px] font-black text-slate-400 uppercase tracking-[4px] ml-4">CGPA</label>
+                                            <label className="text-[10px] font-black text-slate-400 ml-4">CGPA</label>
                                             <input
                                                 name="cgpa"
                                                 type="number"
@@ -364,7 +364,7 @@ const Profile = () => {
                                             />
                                         </div>
                                         <div className="md:col-span-2 space-y-4">
-                                            <label className="text-[10px] font-black text-slate-400 uppercase tracking-[4px] ml-4">Skills</label>
+                                            <label className="text-[10px] font-black text-slate-400 ml-4">Skills</label>
                                             <textarea
                                                 name="skills"
                                                 value={formData.skills}
@@ -387,7 +387,7 @@ const Profile = () => {
                                     ) : (
                                         <>
                                             <Save size={32} className="group-hover:rotate-12 transition-transform duration-500 text-[#92400E]" />
-                                            <span className="text-2xl tracking-tighter uppercase">Update Profile</span>
+                                            <span className="text-2xl tracking-tighter">Update profile</span>
                                         </>
                                     )}
                                 </button>

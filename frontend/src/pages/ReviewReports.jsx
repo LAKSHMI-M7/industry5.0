@@ -51,10 +51,9 @@ const ReviewReports = () => {
             <div className="max-w-7xl mx-auto space-y-12 pb-20 animate-in fade-in slide-in-from-bottom-8 duration-1000">
                 <header className="flex flex-col md:flex-row md:items-end justify-between gap-8">
                     <div>
-                        <h1 className="text-5xl font-black text-slate-900 tracking-tight mb-3">Review Weekly Reports</h1>
-                        <p className="text-slate-500 font-bold ml-1 tracking-widest text-sm opacity-60">Review and provide remarks on student weekly reports.</p>
+                        <h1 className="text-5xl font-black text-slate-900 tracking-tight mb-3 uppercase">Weekly Reports</h1>
+                        <p className="text-slate-500 font-bold ml-1 uppercase tracking-widest text-sm">Review and approve student weekly reports.</p>
                     </div>
-
                     <div className="relative group">
                         <Search className="absolute left-5 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-[#9A4A17] transition-colors" size={20} />
                         <input
@@ -110,10 +109,10 @@ const ReviewReports = () => {
                                             </div>
                                         </div>
                                         <span className={`px-4 py-1.5 rounded-full text-[8px] font-black uppercase tracking-widest ${report.status === 'Verified' ? 'bg-indigo-50 text-indigo-600 border border-indigo-100' :
-                                                report.status === 'Approved' ? 'bg-emerald-50 text-emerald-600 border border-emerald-100' :
-                                                    report.status === 'Correction Requested' ? 'bg-amber-50 text-amber-600 border border-amber-100' :
-                                                        report.status === 'Rejected' ? 'bg-red-50 text-red-600 border border-red-100' :
-                                                            'bg-slate-50 text-slate-600 border border-slate-100'
+                                            report.status === 'Approved' ? 'bg-emerald-50 text-emerald-600 border border-emerald-100' :
+                                                report.status === 'Correction Requested' ? 'bg-amber-50 text-amber-600 border border-amber-100' :
+                                                    report.status === 'Rejected' ? 'bg-red-50 text-red-600 border border-red-100' :
+                                                        'bg-slate-50 text-slate-600 border border-slate-100'
                                             }`}>
                                             {report.status}
                                         </span>
@@ -122,10 +121,9 @@ const ReviewReports = () => {
                                     <div className="mt-6 pt-6 border-t border-slate-100 flex items-center justify-between">
                                         <div className="flex items-center space-x-4">
                                             <div className="flex items-center space-x-1 text-slate-400">
-                                                <FileText size={14} />
-                                                <span className="text-[9px] font-bold tracking-widest">{selectedReport?.technologiesUsed?.length || 0} Topics</span>
+                                                <Cpu size={14} />
+                                                <span className="text-[9px] font-black uppercase tracking-widest">{report.technologiesUsed?.length || 0} Technologies</span>
                                             </div>
-
                                             {report.attachments?.length > 0 && (
                                                 <div className="flex items-center space-x-1 text-slate-400">
                                                     <Paperclip size={14} />
@@ -161,9 +159,8 @@ const ReviewReports = () => {
                                             />
                                             <div>
                                                 <h3 className="text-3xl font-black text-slate-900 uppercase tracking-tighter leading-none mb-2">{selectedReport.user?.name}</h3>
-                                                <p className="text-[10px] text-slate-400 font-bold tracking-widest">Weekly Report Details</p>
+                                                <p className="text-[10px] text-slate-400 font-black uppercase tracking-[3px]">Weekly Report Details</p>
                                             </div>
-
                                         </div>
                                     </div>
 
@@ -216,8 +213,7 @@ const ReviewReports = () => {
                                         </div>
 
                                         <div className="space-y-8 pt-10 border-t border-slate-100">
-                                            <p className="text-[10px] font-bold text-slate-400 tracking-[2px] ml-2">Review & Remarks</p>
-
+                                            <p className="text-[10px] font-black text-slate-400 uppercase tracking-[3px] ml-2">Verification & Feedback</p>
 
                                             <div className="space-y-6">
                                                 <textarea

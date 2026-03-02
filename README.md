@@ -37,3 +37,4 @@ npm run dev
 ## Project Structure
 - `/server`: Node/Express API with Mongoose models.
 - `/client`: Vite + React frontend with Tailwind CSS.
+ live link : https://industry5-0.vercel.app/login.

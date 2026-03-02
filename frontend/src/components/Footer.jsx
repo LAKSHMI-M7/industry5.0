@@ -22,10 +22,10 @@ const Footer = () => {
 
     return (
         <footer className="site-footer">
-            <p className="text-[10px] font-black text-slate-500 uppercase tracking-[3px]">
+            <p className="text-[10px] font-black text-slate-500">
                 Industry 5.0 Club – Jeppiaar Institute of Technology
             </p>
-            <div className="flex flex-col md:flex-row items-center justify-center gap-2 md:gap-6 text-[9px] font-bold text-slate-400 uppercase tracking-widest">
+            <div className="flex flex-col md:flex-row items-center justify-center gap-2 md:gap-6 text-[9px] font-bold text-slate-400">
                 <a href={`mailto:${email}`} className="hover:text-[#92400E] transition-colors">Email: {email}</a>
                 <span className="hidden md:inline text-slate-200">|</span>
                 <span className="hover:text-[#92400E] transition-colors">Instagram: {instagram}</span>
@@ -34,7 +34,7 @@ const Footer = () => {
                     LinkedIn: {linkedin}
                 </a>
             </div>
-            <p className="text-[8px] font-bold text-slate-300 uppercase tracking-[4px] pt-2">
+            <p className="text-[8px] font-bold text-slate-300 pt-2">
                 © Jeppiaar Institute of Technology
             </p>
         </footer>

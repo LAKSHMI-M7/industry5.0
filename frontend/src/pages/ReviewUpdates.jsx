@@ -49,9 +49,9 @@ const ReviewUpdates = () => {
             <div className="bg-[#ECECEC] min-h-screen flex flex-col items-center justify-center p-8 space-y-8 font-['Outfit']">
                 <div className="relative">
                     <div className="w-20 h-20 border-4 border-[#9A4A17]/20 border-t-[#9A4A17] rounded-full animate-spin"></div>
-                    <User size={24} className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[#9A4A17] animate-pulse" />
+                    <Cpu size={24} className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[#9A4A17] animate-pulse" />
                 </div>
-                <p className="text-slate-400 font-bold tracking-[2px] animate-pulse">Loading Activity History...</p>
+                <p className="text-slate-400 font-black uppercase tracking-[6px] animate-pulse">Loading Daily Updates...</p>
             </div>
         );
     }
@@ -61,10 +61,9 @@ const ReviewUpdates = () => {
             <div className="max-w-7xl mx-auto space-y-12 pb-20 animate-in fade-in slide-in-from-bottom-8 duration-1000">
                 <header className="flex flex-col md:flex-row md:items-end justify-between gap-8">
                     <div>
-                        <h1 className="text-5xl font-black text-slate-900 tracking-tight mb-3">Review Daily Activities</h1>
-                        <p className="text-slate-500 font-bold ml-1 tracking-widest text-sm opacity-70">Review and provide feedback on student activity logs.</p>
+                        <h1 className="text-5xl font-black text-slate-900 tracking-tight mb-3 uppercase">Daily Updates</h1>
+                        <p className="text-slate-500 font-bold ml-1 uppercase tracking-widest text-sm">Review and provide feedback on student daily academic updates.</p>
                     </div>
-
                     <div className="relative group">
                         <Search className="absolute left-6 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-[#9A4A17] transition-colors" size={20} />
                         <input
@@ -114,9 +113,9 @@ const ReviewUpdates = () => {
                                                     />
                                                 </div>
                                                 <div className={`absolute -bottom-1 -right-1 w-5 h-5 rounded-full border-4 border-white shadow-sm ${update.status === 'Approved' ? 'bg-emerald-500' :
-                                                        update.status === 'Rejected' ? 'bg-red-500' :
-                                                            update.status === 'Correction Requested' ? 'bg-amber-500' :
-                                                                'bg-blue-500 animate-pulse'
+                                                    update.status === 'Rejected' ? 'bg-red-500' :
+                                                        update.status === 'Correction Requested' ? 'bg-amber-500' :
+                                                            'bg-blue-500 animate-pulse'
                                                     }`}></div>
                                             </div>
                                             <div>
@@ -125,9 +124,9 @@ const ReviewUpdates = () => {
                                             </div>
                                         </div>
                                         <span className={`px-4 py-1.5 rounded-full text-[8px] font-black uppercase tracking-widest ${update.status === 'Approved' ? 'bg-emerald-50 text-emerald-600 border border-emerald-100' :
-                                                update.status === 'Correction Requested' ? 'bg-amber-50 text-amber-600 border border-amber-100' :
-                                                    update.status === 'Rejected' ? 'bg-red-50 text-red-600 border border-red-100' :
-                                                        'bg-blue-50 text-blue-600 border border-blue-100'
+                                            update.status === 'Correction Requested' ? 'bg-amber-50 text-amber-600 border border-amber-100' :
+                                                update.status === 'Rejected' ? 'bg-red-50 text-red-600 border border-red-100' :
+                                                    'bg-blue-50 text-blue-600 border border-blue-100'
                                             }`}>
                                             {update.status || 'Pending'}
                                         </span>
@@ -177,12 +176,11 @@ const ReviewUpdates = () => {
 
                                     <div className="space-y-10">
                                         <div className="space-y-6">
-                                            <p className="text-[10px] font-bold text-[#9A4A17] uppercase tracking-[2px] flex items-center"><Activity size={16} className="mr-3" /> Activity Log Details</p>
+                                            <p className="text-[10px] font-black text-[#9A4A17] uppercase tracking-[4px] flex items-center"><Activity size={16} className="mr-3" /> Work Log Details</p>
                                             <div className="p-8 bg-slate-50/50 rounded-[40px] border border-slate-100 shadow-inner">
                                                 <p className="text-slate-600 font-bold text-base leading-relaxed italic">"{selectedUpdate.workDone}"</p>
                                             </div>
                                         </div>
-
 
                                         {(selectedUpdate.images?.length > 0 || selectedUpdate.links?.length > 0) && (
                                             <div className="space-y-6">
@@ -204,8 +202,7 @@ const ReviewUpdates = () => {
 
                                         <div className="space-y-8 pt-8 border-t border-slate-100">
                                             <div className="space-y-4">
-                                                <label className="text-[10px] font-bold text-slate-400 tracking-[2px] ml-4">Reviewer Remarks</label>
-
+                                                <label className="text-[10px] font-black text-slate-400 uppercase tracking-[4px] ml-4">Administrative Feedback</label>
                                                 <textarea
                                                     required
                                                     value={reply}
