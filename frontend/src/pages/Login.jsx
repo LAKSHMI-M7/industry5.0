@@ -43,8 +43,8 @@ const Login = () => {
                     >
                         <div className="space-y-4">
                             <div className="flex flex-col mb-4">
-                                <p className="text-[44px] font-serif font-black text-slate-900 leading-none mb-2">
-                                    Jeppiaar Institute of Technology
+                                <p className="text-[44px] font-serif font-black text-slate-900 leading-none mb-2 uppercase">
+                                    JEPPIAAR INSTITUTE OF TECHNOLOGY
                                 </p>
                                 <div className="h-[3px] w-32 bg-[#92400E]"></div>
                             </div>
@@ -73,7 +73,7 @@ const Login = () => {
                 {/* Right Panel: Login Card */}
                 <div className="w-full login-right z-10 text-center p-4">
                     <div className="lg:hidden w-full text-center mb-10">
-                        <p className="text-[#92400E] font-black text-[12px] mb-2 font-serif">Jeppiaar Institute of Technology</p>
+                        <p className="text-[#92400E] font-black text-[12px] mb-2 font-serif uppercase">JEPPIAAR INSTITUTE OF TECHNOLOGY</p>
                         <h1 className="text-2xl font-black text-slate-900 tracking-tighter">Industry 5.0 Club Portal</h1>
                     </div>
 
