@@ -42,14 +42,10 @@ export const AuthProvider = ({ children }) => {
     };
 
     const changePassword = async (newPassword) => {
-        try {
-            await axios.post('/api/auth/change-password', { password: newPassword });
-            const updatedUser = { ...user, isFirstLogin: false };
-            setUser(updatedUser);
-            localStorage.setItem('user', JSON.stringify(updatedUser));
-        } catch (err) {
-            throw err;
-        }
+        await axios.post('/api/auth/change-password', { password: newPassword });
+        const updatedUser = { ...user, isFirstLogin: false };
+        setUser(updatedUser);
+        localStorage.setItem('user', JSON.stringify(updatedUser));
     };
 
     const logout = () => {
@@ -78,4 +74,5 @@ export const AuthProvider = ({ children }) => {
     );
 };
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const useAuth = () => useContext(AuthContext);
