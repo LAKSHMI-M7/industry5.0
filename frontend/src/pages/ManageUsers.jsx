@@ -208,7 +208,7 @@ const ManageUsers = () => {
                 </div>
 
                 <div className="glass-strong rounded-[56px] border-white shadow-2xl overflow-hidden relative group">
-                    <div className="absolute top-0 right-0 p-10 opacity-5 pointer-events-none group-hover:scale-110 transition-transform duration-[3s]">
+                    <div className="absolute top-0 right-0 p-10 opacity-5 pointer-events-none group-hover:scale-110 transition-transform duration-700">
                         <Fingerprint size={120} className="text-[#92400E]" />
                     </div>
                     <div className="overflow-x-auto">
