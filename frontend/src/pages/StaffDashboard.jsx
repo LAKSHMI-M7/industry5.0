@@ -35,7 +35,7 @@ const StaffDashboard = () => {
                     <p className="text-slate-500 font-bold ml-1 uppercase tracking-widest text-sm">Manage and track student progress.</p>
                 </div>
                 <div className="bg-white/60 backdrop-blur-md px-10 py-5 rounded-[28px] border border-white shadow-xl flex items-center space-x-4">
-                    <img src="/logo.png" alt="Logo" className="w-6 h-6 rounded-full" />
+                    <img src="/assets/logo.png" alt="Logo" className="w-6 h-6 rounded-full" />
                     <span className="text-slate-900 font-black uppercase tracking-[3px] text-xs">Staff Access</span>
                 </div>
             </header>

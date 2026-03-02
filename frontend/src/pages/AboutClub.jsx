@@ -54,7 +54,7 @@ const AboutClub = () => {
         <div className="space-y-10 pb-20 font-['Outfit']">
             <header className="bg-white p-12 rounded-[48px] shadow-sm border border-slate-100 text-center relative overflow-hidden">
                 <div className="absolute top-0 right-0 w-64 h-64 bg-[#92400E]/5 rounded-full blur-3xl -mr-32 -mt-32"></div>
-                <img src="/logo.png" alt="Logo" className="w-24 h-24 mx-auto mb-8 rounded-full shadow-lg border-4 border-white" />
+                <img src="/assets/logo.png" alt="Logo" className="w-24 h-24 mx-auto mb-8 rounded-full shadow-lg border-4 border-white" />
                 <h1 className="text-5xl font-black text-slate-900 tracking-tighter">Industry 5.0 Club</h1>
                 <p className="text-slate-500 font-bold text-sm mt-3 opacity-60">Jeppiaar Institute of Technology</p>
                 <div className="h-1 w-20 bg-[#92400E] mx-auto rounded-full mt-8"></div>

@@ -109,7 +109,7 @@ const Profile = () => {
             <div className="dashboard-gradient min-h-screen flex flex-col items-center justify-center p-8 space-y-8 font-['Outfit']">
                 <div className="relative">
                     <div className="w-24 h-24 border-4 border-[#92400E]/20 border-t-[#92400E] rounded-full animate-spin"></div>
-                    <img src="/logo.png" alt="Logo" className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-12 h-12 rounded-full animate-pulse" />
+                    <img src="/assets/logo.png" alt="Logo" className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-12 h-12 rounded-full animate-pulse" />
                 </div>
                 <p className="text-slate-400 font-black animate-pulse">Loading profile...</p>
             </div>

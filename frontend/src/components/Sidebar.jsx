@@ -110,7 +110,7 @@ const Sidebar = () => {
             <div className="p-6 pb-2 erp-logo-section">
                 <div className="flex items-center space-x-3 mb-2">
                     <img
-                        src="/logo.png"
+                        src="/assets/logo.png"
                         alt="Logo"
                         className="w-10 h-10 rounded-full object-cover shadow-md border border-white bg-white flex-shrink-0"
                     />

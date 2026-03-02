@@ -8,11 +8,12 @@ export const getImageUrl = (path) => {
     // If it's already a full URL, return as is
     if (path.startsWith('http')) return path;
 
-    // Check if it's a profile photo path from backend
-    if (path.startsWith('/uploads/profiles/')) {
+    // Check if it's a profile photo path
+    if (path.startsWith('/uploads/profiles/') || path.startsWith('/avatars/')) {
         const fileName = path.split('/').pop();
-        // Since we moved them to public/assets, we can access them via /assets/filename
-        return `/assets/${fileName}`;
+        // Since we moved them to public/assets and public/avatars, redirect
+        const isFromUploads = path.startsWith('/uploads/profiles/');
+        return isFromUploads ? `/assets/${fileName}` : `/avatars/${fileName}`;
     }
 
     // Get the base URL from env

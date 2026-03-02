@@ -36,7 +36,7 @@ const AdminDashboard = () => {
             <div className="relative">
                 <div className="w-24 h-24 border-8 border-amber-100/20 border-t-[#9A4A17] rounded-full animate-spin"></div>
                 <div className="absolute inset-0 flex items-center justify-center">
-                    <img src="/logo.png" alt="Logo" className="w-12 h-12 rounded-full animate-pulse" />
+                    <img src="/assets/logo.png" alt="Logo" className="w-12 h-12 rounded-full animate-pulse" />
                 </div>
             </div>
             <p className="text-[10px] font-black text-slate-400 animate-pulse">Initializing portal...</p>
