@@ -124,33 +124,44 @@ body {
   margin-right: 14px;
 }
 
-.page-wrapper {
-  min-height: 100vh;
+.login-wrapper {
+  height: 100vh;
   display: flex;
   flex-direction: column;
+  overflow: hidden;
+  background-color: var(--background);
 }
 
-.login-container {
+.login-content {
   flex: 1;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding-bottom: 20px;
+  padding: 40px 80px;
+  position: relative;
+  z-index: 10;
 }
 
-.left-branding {
+.login-left {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  flex: 0 0 55%;
 }
 
-.site-footer {
+.login-right {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 45%;
+}
+
+.login-footer, .site-footer {
   text-align: center;
-  padding: 12px 0;
-  font-size: 13px;
-  color: #7a7a7a;
+  padding: 10px;
+  font-size: 12px;
+  color: #8a8a8a;
   border-top: 1px solid #e5e5e5;
   background: transparent;
-  margin-top: auto;
-  padding-bottom: 8px;
+  width: 100%;
 }

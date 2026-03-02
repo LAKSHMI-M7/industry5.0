@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-const Footer = () => {
+const Footer = ({ className }) => {
     const [clubInfo, setClubInfo] = useState(null);
 
     useEffect(() => {
@@ -21,7 +21,7 @@ const Footer = () => {
     const linkedin = clubInfo?.linkedin || 'https://www.linkedin.com/in/industry-5-0-club-9b34263a8';
 
     return (
-        <footer className="site-footer">
+        <footer className={`${className || 'site-footer'}`}>
             <p className="text-[10px] font-black text-slate-500">
                 Industry 5.0 Club – Jeppiaar Institute of Technology
             </p>

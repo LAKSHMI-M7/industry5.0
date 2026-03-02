@@ -27,20 +27,19 @@ const Login = () => {
     };
 
     return (
-        <div className="page-wrapper bg-[#F8FAFC] font-['Outfit']">
-            <div className="login-container relative overflow-hidden">
+        <div className="login-wrapper bg-[#F8FAFC] font-['Outfit']">
+            <div className="login-content relative overflow-hidden">
                 {/* Background Radial Glows */}
                 <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-amber-50 rounded-full blur-[120px] opacity-60"></div>
                 <div className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] bg-blue-50 rounded-full blur-[120px] opacity-60"></div>
 
-                {/* Left Panel: 55% Branding */}
-
-                <div className="hidden lg:flex lg:w-[55%] left-branding relative overflow-hidden p-20 z-10">
+                {/* Left Panel: Branding */}
+                <div className="hidden lg:flex login-left relative overflow-hidden p-12 z-10">
                     <motion.div
                         initial={{ opacity: 0, x: -40 }}
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ duration: 0.8, ease: "easeOut" }}
-                        className="max-w-4xl"
+                        className="max-w-2xl"
                     >
                         <div className="space-y-4">
                             <div className="flex flex-col mb-4">
@@ -56,7 +55,7 @@ const Login = () => {
                                     alt="Industry 5.0 Logo"
                                     className="club-logo"
                                 />
-                                <h2 className="text-3xl font-black text-[#92400E] tracking-tight leading-none">Industry 5.0 Club Portal</h2>
+                                <h2 className="text-2xl font-black text-[#92400E] tracking-tight leading-none">Industry 5.0 Club Portal</h2>
                             </div>
 
                             <p className="text-sm font-bold text-slate-400 ml-[66px]">
@@ -64,15 +63,15 @@ const Login = () => {
                             </p>
                         </div>
 
-                        <div className="flex items-center space-x-4 mt-16 ml-[86px]">
+                        <div className="flex items-center space-x-4 mt-12 ml-[86px]">
                             <div className="h-10 w-px bg-slate-200"></div>
                             <p className="text-[10px] font-black text-slate-400 leading-tight">Official Institutional<br />Security Protocol</p>
                         </div>
                     </motion.div>
                 </div>
 
-                {/* Right Panel: 45% Login Card */}
-                <div className="w-full lg:w-[45%] flex flex-col items-center justify-center p-6 lg:p-12 z-10 text-center">
+                {/* Right Panel: Login Card */}
+                <div className="w-full login-right z-10 text-center p-4">
                     <div className="lg:hidden w-full text-center mb-10">
                         <p className="text-[#92400E] font-black text-[12px] mb-2 font-serif">Jeppiaar Institute of Technology</p>
                         <h1 className="text-2xl font-black text-slate-900 tracking-tighter">Industry 5.0 Club Portal</h1>
@@ -82,10 +81,10 @@ const Login = () => {
                         initial={{ opacity: 0, y: 20, scale: 0.98 }}
                         animate={{ opacity: 1, y: 0, scale: 1 }}
                         transition={{ duration: 0.6, delay: 0.2 }}
-                        className="w-full max-w-[500px] p-10 md:p-16 rounded-[48px] shadow-[0_32px_64px_-16px_rgba(0,0,0,0.08)] bg-white border border-slate-200/50 backdrop-blur-sm"
+                        className="w-full max-w-[450px] p-10 md:p-12 rounded-[48px] shadow-xl bg-white border border-slate-200/50 backdrop-blur-sm"
                     >
-                        <div className="mb-12 w-full text-center">
-                            <h2 className="text-3xl font-black text-slate-900 tracking-tighter leading-none mb-3">Sign in to your account</h2>
+                        <div className="mb-10 w-full text-center">
+                            <h2 className="text-2xl font-black text-slate-900 tracking-tighter leading-none mb-3">Sign in to your account</h2>
                         </div>
 
                         {error && (
@@ -99,7 +98,7 @@ const Login = () => {
                             </motion.div>
                         )}
 
-                        <form onSubmit={handleSubmit} className="w-full space-y-8">
+                        <form onSubmit={handleSubmit} className="w-full space-y-6">
                             <div className="space-y-3">
                                 <label className="text-[10px] font-black text-slate-400 ml-1">Registered email ID</label>
                                 <div className="relative group">
@@ -148,8 +147,8 @@ const Login = () => {
                     </motion.div>
                 </div>
             </div>
-            <Footer />
-        </div >
+            <Footer className="login-footer" />
+        </div>
     );
 };
 
