@@ -16,7 +16,7 @@ export const getImageUrl = (path) => {
     }
 
     // Get the base URL from env
-    const baseUrl = import.meta.env.VITE_API_BASE_URL || '';
+    const baseUrl = import.meta.env.VITE_API_URL || '';
 
     // Ensure the path starts with a slash
     const normalizedPath = path.startsWith('/') ? path : `/${path}`;
