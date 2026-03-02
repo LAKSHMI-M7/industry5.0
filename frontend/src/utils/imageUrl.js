@@ -4,15 +4,22 @@
  */
 export const getImageUrl = (path) => {
     if (!path) return null;
-    
+
     // If it's already a full URL, return as is
     if (path.startsWith('http')) return path;
-    
+
+    // Check if it's a profile photo path from backend
+    if (path.startsWith('/uploads/profiles/')) {
+        const fileName = path.split('/').pop();
+        // Since we moved them to public/assets, we can access them via /assets/filename
+        return `/assets/${fileName}`;
+    }
+
     // Get the base URL from env
     const baseUrl = import.meta.env.VITE_API_BASE_URL || '';
-    
+
     // Ensure the path starts with a slash
     const normalizedPath = path.startsWith('/') ? path : `/${path}`;
-    
+
     return `${baseUrl}${normalizedPath}`;
 };
