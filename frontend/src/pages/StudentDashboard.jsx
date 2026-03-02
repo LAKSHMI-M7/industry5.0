@@ -27,6 +27,7 @@ import {
     Info
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { getImageUrl } from '../utils/imageUrl';
 
 const StudentDashboard = () => {
     const navigate = useNavigate();
@@ -317,7 +318,7 @@ const StudentDashboard = () => {
                                 <div className="relative inline-block mb-10">
                                     <div className="w-40 h-40 rounded-[42px] p-2 bg-white/60 backdrop-blur-md shadow-2xl mx-auto border border-white transform hover:rotate-3 transition-transform duration-500">
                                         <img
-                                            src={profile?.user?.avatar || `https://ui-avatars.com/api/?name=${encodeURIComponent(user?.name)}&background=92400E&color=fff&size=200&bold=true`}
+                                            src={getImageUrl(profile?.user?.avatar) || `https://ui-avatars.com/api/?name=${encodeURIComponent(user?.name)}&background=92400E&color=fff&size=200&bold=true`}
                                             className="w-full h-full rounded-[36px] object-cover"
                                             alt={user?.name}
                                         />
