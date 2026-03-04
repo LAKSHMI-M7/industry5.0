@@ -56,6 +56,7 @@ app.use('/api/secretary', require('./routes/secretaryRoutes'));
 app.use('/api/admin', require('./routes/adminRoutes'));
 app.use('/api/posters', require('./routes/posterRoutes'));
 app.use('/api/club-info', require('./routes/clubInfoRoutes'));
+app.use('/api/events', require('./routes/eventRoutes'));
 
 app.get('/api/health', async (req, res) => {
     const User = require('./models/User');
