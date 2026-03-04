@@ -247,7 +247,7 @@ const Profile = () => {
                                         </div>
                                     </div>
 
-                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8 my-6">
                                         <div className="space-y-4">
                                             <label className="text-[10px] font-black text-slate-400 ml-4">Register number</label>
                                             <div className="relative group">
@@ -277,13 +277,13 @@ const Profile = () => {
                                             </div>
                                         </div>
                                         <div className="space-y-4">
-                                            <label className="text-[10px] font-black text-slate-400 ml-4">Academic year</label>
-                                            <div className="grid grid-cols-3 gap-6">
+                                            <label className="text-[10px] font-black text-slate-400 ml-4">Academic year details</label>
+                                            <div className="grid grid-cols-3 gap-4">
                                                 <select
                                                     name="year"
                                                     value={formData.year}
                                                     onChange={handleChange}
-                                                    className="w-full bg-slate-50/50 border border-slate-200/50 rounded-[28px] py-5 px-6 focus:bg-white focus:ring-[15px] focus:ring-[#92400E]/5 focus:border-[#924000] outline-none transition-all text-slate-900 font-black cursor-pointer"
+                                                    className="w-full bg-slate-50/50 border border-slate-200/50 rounded-[32px] py-5 px-4 focus:bg-white focus:ring-[10px] focus:ring-[#92400E]/5 focus:border-[#92400E] outline-none transition-all text-slate-900 font-bold cursor-pointer text-center"
                                                 >
                                                     <option value="1">Y1</option>
                                                     <option value="2">Y2</option>
@@ -295,16 +295,16 @@ const Profile = () => {
                                                     required
                                                     value={formData.semester}
                                                     onChange={handleChange}
-                                                    className="w-full bg-slate-50/50 border border-slate-200/50 rounded-[28px] py-5 px-6 focus:bg-white focus:ring-[15px] focus:ring-[#92400E]/5 focus:border-[#92400E] outline-none transition-all text-slate-900 font-black text-center"
-                                                    placeholder="SEM"
+                                                    className="w-full bg-slate-50/50 border border-slate-200/50 rounded-[32px] py-5 px-4 focus:bg-white focus:ring-[10px] focus:ring-[#92400E]/5 focus:border-[#92400E] outline-none transition-all text-slate-900 font-bold text-center"
+                                                    placeholder="SEM (e.g. 5)"
                                                 />
                                                 <input
                                                     name="section"
                                                     required
                                                     value={formData.section}
                                                     onChange={handleChange}
-                                                    className="w-full bg-slate-50/50 border border-slate-200/50 rounded-[28px] py-5 px-6 focus:bg-white focus:ring-[15px] focus:ring-[#92400E]/5 focus:border-[#92400E] outline-none transition-all text-slate-900 font-black text-center"
-                                                    placeholder="SEC"
+                                                    className="w-full bg-slate-50/50 border border-slate-200/50 rounded-[32px] py-5 px-4 focus:bg-white focus:ring-[10px] focus:ring-[#92400E]/5 focus:border-[#92400E] outline-none transition-all text-slate-900 font-bold text-center"
+                                                    placeholder="SEC (e.g. A)"
                                                 />
                                             </div>
                                         </div>
@@ -336,7 +336,7 @@ const Profile = () => {
                                         </div>
                                     </div>
 
-                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8 my-6">
                                         <div className="space-y-4">
                                             <label className="text-[10px] font-black text-slate-400 ml-4">Your domain</label>
                                             <div className="relative group">
@@ -353,15 +353,33 @@ const Profile = () => {
                                         </div>
                                         <div className="space-y-4">
                                             <label className="text-[10px] font-black text-slate-400 ml-4">CGPA</label>
-                                            <input
-                                                name="cgpa"
-                                                type="number"
-                                                step="0.01"
-                                                value={formData.cgpa}
-                                                onChange={handleChange}
-                                                className="w-full bg-slate-50/50 border border-slate-200/50 rounded-[32px] py-5 px-8 focus:bg-white focus:ring-[15px] focus:ring-[#92400E]/5 focus:border-[#92400E] outline-none transition-all text-slate-900 font-black placeholder:text-slate-300"
-                                                placeholder="9.00"
-                                            />
+                                            <div className="relative group">
+                                                <Award className="absolute left-6 top-1/2 -translate-y-1/2 text-slate-300 group-focus-within:text-[#92400E] transition-colors" size={20} />
+                                                <input
+                                                    name="cgpa"
+                                                    type="number"
+                                                    step="0.01"
+                                                    value={formData.cgpa}
+                                                    onChange={handleChange}
+                                                    className="w-full bg-slate-50/50 border border-slate-200/50 rounded-[32px] py-5 pl-16 pr-8 focus:bg-white focus:ring-[15px] focus:ring-[#92400E]/5 focus:border-[#92400E] outline-none transition-all text-slate-900 font-bold placeholder:text-slate-300"
+                                                    placeholder="9.00"
+                                                />
+                                            </div>
+                                        </div>
+                                        <div className="space-y-4">
+                                            <label className="text-[10px] font-black text-slate-400 ml-4">Arrears</label>
+                                            <div className="relative group">
+                                                <Hash className="absolute left-6 top-1/2 -translate-y-1/2 text-slate-300 group-focus-within:text-[#92400E] transition-colors" size={20} />
+                                                <input
+                                                    name="arrears"
+                                                    type="number"
+                                                    min="0"
+                                                    value={formData.arrears}
+                                                    onChange={handleChange}
+                                                    className="w-full bg-slate-50/50 border border-slate-200/50 rounded-[32px] py-5 pl-16 pr-8 focus:bg-white focus:ring-[15px] focus:ring-[#92400E]/5 focus:border-[#92400E] outline-none transition-all text-slate-900 font-bold placeholder:text-slate-300"
+                                                    placeholder="0"
+                                                />
+                                            </div>
                                         </div>
                                         <div className="md:col-span-2 space-y-4">
                                             <label className="text-[10px] font-black text-slate-400 ml-4">Skills</label>
