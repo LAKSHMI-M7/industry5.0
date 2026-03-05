@@ -12,10 +12,18 @@ router.post('/upload-artifact', protect, uploadArtifact.single('artifact'), asyn
             return res.status(400).json({ message: 'No file uploaded or invalid file format.' });
         }
 
-        // Cloudinary returns the secure_url
+        let artifactUrl = req.file.path; // Set by CloudinaryStorage
+
+        // If Cloudinary is missing, memoryStorage was used and req.file.path doesn't exist
+        // Instead, we have req.file.buffer
+        if (!artifactUrl && req.file.buffer) {
+            const base64String = req.file.buffer.toString('base64');
+            artifactUrl = `data:${req.file.mimetype};base64,${base64String}`;
+        }
+
         res.status(200).json({
             message: 'Artifact uploaded successfully',
-            artifactUrl: req.file.path,
+            artifactUrl: artifactUrl,
             filename: req.file.originalname
         });
     } catch (error) {

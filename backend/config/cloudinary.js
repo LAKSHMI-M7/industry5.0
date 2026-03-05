@@ -2,25 +2,28 @@ const cloudinary = require('cloudinary').v2;
 const { CloudinaryStorage } = require('multer-storage-cloudinary');
 const multer = require('multer');
 
-cloudinary.config({
-    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
-    api_key: process.env.CLOUDINARY_API_KEY,
-    api_secret: process.env.CLOUDINARY_API_SECRET,
-});
+let storage;
+if (process.env.CLOUDINARY_CLOUD_NAME) {
+    cloudinary.config({
+        cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+        api_key: process.env.CLOUDINARY_API_KEY,
+        api_secret: process.env.CLOUDINARY_API_SECRET,
+    });
 
-const storage = new CloudinaryStorage({
-    cloudinary: cloudinary,
-    params: async (req, file) => {
-        // Determine the resource_type based on the file type
-        // Cloudinary natively supports PDF uploads as raw or image depending on settings,
-        // "auto" helps handle varying file types seamlessly.
-        return {
-            folder: 'industry5_events',
-            resource_type: 'auto',
-            allowed_formats: ['jpg', 'jpeg', 'png', 'pdf']
-        };
-    },
-});
+    storage = new CloudinaryStorage({
+        cloudinary: cloudinary,
+        params: async (req, file) => {
+            return {
+                folder: 'industry5_events',
+                resource_type: 'auto',
+                allowed_formats: ['jpg', 'jpeg', 'png', 'pdf']
+            };
+        },
+    });
+} else {
+    // Fallback: If Cloudinary keys are missing (e.g., on Vercel), buffer file to memory -> MongoDB base64
+    storage = multer.memoryStorage();
+}
 
 const fileFilter = (req, file, cb) => {
     const allowedMime = ['image/jpeg', 'image/png', 'application/pdf'];
